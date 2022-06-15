@@ -1,0 +1,22 @@
+
+svg.svg-inline--fa.fa-magnifying-glass {
+    color: #fff;
+    font-size: 14px;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    opacity: 0.8;
+}
+
+picture img{
+    width: 22px;
+    height: 21px;
+    fill: #fff;
+    margin-right: 4px;
+}
+@media screen and (max-width:768px) {
+    picture img{
+        width: 15px;
+        height: 11px;
+    }
+}

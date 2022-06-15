@@ -1,0 +1,38 @@
+
+.listViewHead {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #def5ec;
+}
+.listView {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+table{
+    width: 100%;
+    background-color: #def5ec;
+}
+thead{
+    background-color: #def5ec;
+}
+tbody{
+    background-color: #fff;
+}
+td{
+    text-align: center;
+    font-size: 14px;
+    position: relative;
+}
+th{
+    position: relative;
+}
+th p{
+    color: #8d9491;
+    font-size: 14px;
+}
+.greenIcon{
+    color: #5acba1;
+    margin-left: 10px;
+}
