@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "../devices";
 export const ContainerStyled = styled.div`
-  max-width: 1200px;
+  max-width: 1300px;
   width: 100%;
   margin: 0 auto;
   @media ${device.laptopL} {

@@ -1,10 +1,13 @@
 import SearchInput from "./SearchInput";
 import FontAwesome from "../../Fontawesome/Fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-const SearchBar: React.FC = () => {
+type searchedGistResult = {
+  searchGist :any;
+}
+const SearchBar = ({searchGist}:searchedGistResult) => {
   return (
     <>
-      <SearchInput placeholder="Search Notes..." />
+      <SearchInput onkeyup = {searchGist} placeholder="Search Notes..." />
       <FontAwesome faIcon={faSearch} />
     </>
   );

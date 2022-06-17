@@ -2,10 +2,15 @@ body {
   margin: 0;
   font-family: Helvetica, sans-serif;
 }
-
+p{margin: 0;}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.greenActive{
+  width: 40px;
+  height: 30px;
+  color: lightseagreen
 }
  .svg-inline--fa.listIcon {
   width: 40px;
@@ -18,7 +23,13 @@ code {
   height: 30px;
   color: lightgray;
 }
-
+/* Grid css */
+.css-gem0ov-MuiPaper-root{
+  box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
+-webkit-box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
+-moz-box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
+border-radius: 10px !important;
+}
 @media screen and (max-width:768px) {
   .container{
     padding: 0;

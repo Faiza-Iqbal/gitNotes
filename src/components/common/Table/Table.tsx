@@ -13,12 +13,11 @@ import {
     faCodeFork,
     faStar,
   } from "@fortawesome/free-solid-svg-icons";
-import { Avatar, Grid, TableFooter, Typography } from '@mui/material';
+import { Avatar, Grid, Typography } from '@mui/material';
 type TableProps = {
-    apiData : any;
+    apiData : any,
 }
 const TableComponent = ({apiData}:TableProps) => {
-  console.log("apiDatass", apiData);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -45,10 +44,10 @@ const TableComponent = ({apiData}:TableProps) => {
             </TableRow>
         </TableHead>
         <TableBody>
+
           {apiData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row :any, index: number) => (
             <TableRow
               key={`${row?.name}_${index}`}>
-
                 <TableCell>
                   <input type="checkbox" />
                 </TableCell>
@@ -59,7 +58,6 @@ const TableComponent = ({apiData}:TableProps) => {
                   </Grid>
                   <Grid item lg={9}>
                   <Typography color = "gray">{row?.owner?.login}</Typography>
-                 
                   </Grid>
                   </Grid>
                   </TableCell>
