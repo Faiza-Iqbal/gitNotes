@@ -1,6 +1,6 @@
 const companyDetails = {
-  logo: "assets/download.png",
-  url: "https://www.emumba.com",
+  logo: "http://localhost:4500/assets/download.png",
+  url: "http://localhost:4500",
   name: "EMUMBA",
 };
 export default companyDetails;

@@ -3,7 +3,7 @@ svg.svg-inline--fa.fa-magnifying-glass {
     color: #fff;
     font-size: 14px;
     position: absolute;
-    right: 10px;
+    right: 25px;
     top: 12px;
     opacity: 0.8;
 }
@@ -64,6 +64,13 @@ picture img{
     }
     .css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.MuiSelect-select{
         max-width: 20px !important;
+    }
+    .css-1869usk-MuiFormControl-root{
+        min-width: 40px !important
+    }
+    .plainAnchor{
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.87);
     }
 @media screen and (max-width:768px) {
     picture img{

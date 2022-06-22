@@ -1,0 +1,14 @@
+.fileLabel{
+    background-color: #5acba1;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 70px;
+    text-align: center;
+}
+input[type=file]{
+    display: none;
+}

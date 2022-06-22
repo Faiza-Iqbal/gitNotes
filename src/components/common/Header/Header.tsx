@@ -1,30 +1,39 @@
-import "./Header.css";
+import { useState } from "react";
+// Importing Styled Components
 import { ContainerStyled } from "../../../styles/Container.style";
 import { GreenBackground } from "../../../styles/GreenBackground.style";
 import { HeaderStyled } from "./Header.style";
+// Importing Data
 import companyDetails from "../../../data/companyDetails";
+// React Components
 import LogoComponent from "../Logo/Logo";
 import Navbar from "../Navbar/Navbar";
 import NavbarItem from "../Navbar/NavbarItem";
-import { useEffect, useState } from "react";
+// Imports from Material Library
 import { Avatar } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+// Component css
+import "./Header.css";
+// fontawesome 
 import FontAwesome from "../../Fontawesome/Fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { json } from "stream/consumers";
-
 const Header = ( {editSearchState,searchState} : any) => {
-  const [age, setAge] = useState('');
-  // console.log("editSearchState",editSearchState);
+  // Menu DropDown
+  const [menu, setMenu] = useState(''); 
   let user: any = localStorage.getItem('user');
   user= JSON.parse(user);
-  console.log("user?.login",user);
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+  const handleSelectChange = (event: SelectChangeEvent) => {
+    setMenu(event.target.value);
   };
+  // Sign out user
+  const signOut = async () =>{
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    window.location.href = "/";
+  }
   return (
     <GreenBackground>
       <ContainerStyled>
@@ -38,40 +47,40 @@ const Header = ( {editSearchState,searchState} : any) => {
           <Navbar>
             <NavbarItem>
               <input className="searchBar" type="text" placeholder="Search Notes..." value={searchState} onChange={editSearchState} />
+              <FontAwesome faIcon={faSearch} />
             </NavbarItem>
             <NavbarItem>
-              { (!user || user.message) &&
-              <a className="anchorButton" href="https://github.com/login/oauth/authorize?client_id=5ca6d8cb11bc7bfa2c3c"> Login </a>
-                
-              }
+              { !user &&
+              <a className="anchorButton" href="https://github.com/login/oauth/authorize?client_id=5ca6d8cb11bc7bfa2c3c&scope=gist%20user"> Login </a>}
               { user &&
                 <>
-                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                   <InputLabel id="demo-simple-select-standard-label"><Avatar src={user?.avatar_url} alt={user?.login} /></InputLabel>
+                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                   <InputLabel id="demo-simple-select-standard-label">
+                     <Avatar src={user?.avatar_url} alt={user?.login} />
+                   </InputLabel>
                    <Select
                      labelId="demo-simple-select-standard-label"
                      id="demo-simple-select-standard"
-                     value={age}
-                     onChange={handleChange}
-                     label="Age"
+                     value={menu}
+                     onChange={handleSelectChange}
+                     label="Menu"
                      className="avatarDropDown"
                    >
-                     <MenuItem value={10}>Signed In as {user?.login}</MenuItem>
-                     <MenuItem value={20}>Your Gists</MenuItem>
-                     <MenuItem value={30}>Starred Gists</MenuItem>
-                     <MenuItem value={40}>Help</MenuItem>
-                     <MenuItem value={50}>Your GitHub Profile</MenuItem>
-                     <MenuItem value={60}>Sign Out</MenuItem>
+                     <MenuItem >Signed In as {user?.login}</MenuItem>
+                     <MenuItem > <a className="plainAnchor" href="/create-gist">Create Gist</a></MenuItem>
+                     <MenuItem > <a className="plainAnchor" href="/your-gists">Your Gists</a></MenuItem>
+                     <MenuItem ><a className="plainAnchor" href="/starred-gists">Starred Gists</a></MenuItem>
+                     <MenuItem> <a className="plainAnchor" target="_blank" href="https://docs.github.com/en">Help</a> </MenuItem>
+                     <MenuItem > <a target="_blank" className="plainAnchor" href={user?.html_url}> Your GitHub Profile </a></MenuItem>
+                     <MenuItem onClick={signOut} >Sign Out</MenuItem>
                    </Select>
                  </FormControl>
-              
                 </>
               }
             </NavbarItem>
           </Navbar>
         </HeaderStyled>
       </ContainerStyled>
-      
     </GreenBackground>
   );
 };

@@ -1,11 +1,22 @@
+import { useState } from 'react';
+// Router hook
+import {useNavigate} from 'react-router-dom';
+// Material library imports
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import TablePagination from '@mui/material/TablePagination';
 import { Avatar, Typography } from '@mui/material';
+// React Components
+import ViewFileContent from '../ViewFileContent/ViewFileContent';
+import { showDateInDays } from '../GenericFunctions/GenericFunctions';
+
+// defining type of prop for the component
 type GridProps = {
     apiData : any;
 }
+// Material style for Item component
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -13,41 +24,44 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'left',
     color: theme.palette.text.secondary,
     height: 300,
+    cursor: 'pointer',
   }));
 const GridLayout = ({apiData} : GridProps) =>{
-  // fetch('https://gist.githubusercontent.com/mboo2005/d0fe8232a4abfe689a903d311bf4b33d/raw/422c3bfcb5e0147aca84d19437b0de8d003d6583/m3u8-to-mp4.md') 
-  // .then(response => response.text())
-  // .then(result => console.log("result fetch md file",result));
-    const showDateInDays = (created_at_date: string) : string => {
-        let timeString : string = "";
-        let totalMilliSeconds : number = +new Date() - +new Date(created_at_date);
-        let timeAgo : number = Math.floor(totalMilliSeconds / 86400000 );
-        if(timeAgo > 0)
-            return timeString+= `${timeAgo} days ago`;
-        timeAgo = Math.floor(totalMilliSeconds / (60 * 60 * 1000));
-        if(timeAgo > 0)
-            return timeString+= `${timeAgo} hours ago`;
-        timeAgo = Math.floor(totalMilliSeconds / (60 * 1000));
-            return timeString+= `${timeAgo} minutes ago`;
-    }
+  // Pagination
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+  // Navigate to different route
+  const navigate = useNavigate();
+  const goToRoute =(url:string, param:string | number = '')=>{
+    let pageUrl =  url;
+    if(param)
+      pageUrl = `${url}/${param}`;
+    navigate(pageUrl);
+  }
     return(
+      <>
         <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {apiData.map((apiItem : any, index:number) => (
+          {apiData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((apiItem : any, index:number) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
-              <Item>
-                <Typography color = "black">{apiItem?.owner?.avatar_url}</Typography>
-                <Typography color = "black">{apiItem?.owner?.avatar_url}</Typography>
-                <Typography color = "black">{apiItem?.owner?.avatar_url}</Typography>
-                <Typography color = "black">{apiItem?.owner?.avatar_url}</Typography>
+              <Item onClick={() => goToRoute('/gist',apiItem?.id)}>
+              <ViewFileContent file={apiItem.files[Object.keys(apiItem?.files)[0]]?.raw_url}/>
               <hr></hr>
               <Grid container alignItems="center">
                   <Grid item lg={2}>
                   <Avatar src={apiItem?.owner?.avatar_url} alt={apiItem?.name} />
                   </Grid>
                   <Grid item lg={10}>
-                  <Typography color = "blue">{apiItem?.owner?.login} / {Object.keys(apiItem?.files)[0]}</Typography>
-              <Typography color = "gray">Created {showDateInDays(apiItem?.created_at)} </Typography> 
+                  <Typography style={{color: "blue", fontSize: "12px"}}>{apiItem?.owner?.login} / {Object.keys(apiItem?.files)[0].substring(0,20)}</Typography>
+              <Typography style={{color: "gray", fontSize: "10px"}}>Created {showDateInDays(apiItem?.created_at)} </Typography> 
               <p style={{color: "gray", fontSize: "10px"}}>Broadcast Server </p> 
                   </Grid>
                   </Grid>
@@ -55,7 +69,18 @@ const GridLayout = ({apiData} : GridProps) =>{
             </Grid>
           ))}
         </Grid>
+     
       </Box>
+         <TablePagination
+         rowsPerPageOptions={[10, 25, 100]}
+         component="div"
+         count={apiData.length}
+         rowsPerPage={rowsPerPage}
+         page={page}
+         onPageChange={handleChangePage}
+         onRowsPerPageChange={handleChangeRowsPerPage}
+       />
+      </>
     );
 
 }
