@@ -1,4 +1,5 @@
 // lib
+import { useNavigate } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -43,13 +44,20 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
   console.log("apiData", apiData);
   const [searchState, setSearchState] = useState("");
   const [apiDataState, setApiDataState] = useState(apiData);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setApiDataState(apiData);
   }, [apiData]);
 
-  console.log("apiDataState", apiDataState);
   let user: any = localStorage.getItem("user");
   user = JSON.parse(user);
+
+  const goToRoute = (url: string, param: string | number = "") => {
+    let pageUrl = url;
+    if (param) pageUrl = `${url}/${param}`;
+    navigate(pageUrl);
+  };
 
   const removeAGist = async (id: string) => {
     let response = await removeGist(id);
@@ -156,7 +164,7 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                         />
                       </Grid>
                     </Grid>
-                    <Item>
+                    <Item onClick={() => goToRoute("/gist", apiItem?.id)}>
                       <Grid container alignItems="center">
                         {apiData.length === 0 && (
                           <h3>You Have No starred Gists Yet</h3>
