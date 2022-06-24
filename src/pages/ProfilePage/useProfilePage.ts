@@ -2,10 +2,14 @@
 import { useState } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 
+
 // utils
 import { callToApi } from "../../utils/GenericFunctions/CallToApi";
 
 const useProfilePage = () =>{
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [snackBarText, setSnackBarTextOpen] = useState("");
+
   let location: any = useLocation();
   let navigate = useNavigate();
 
@@ -28,6 +32,11 @@ const useProfilePage = () =>{
     setGistContent(e.target.value);
   };
 
+  const hideSnackBar = () => {
+    setSnackBarOpen(false);
+    navigate('/your-gists');
+  }
+
   const createGist = async () => {
 
     let requestData: any = {
@@ -45,8 +54,14 @@ const useProfilePage = () =>{
       },
       body: JSON.stringify(requestData),
     });
-    alert("New Gist Created successfully!");
-    navigate('/your-gists');
+      setSnackBarTextOpen("New Gist Created Successfully!");
+      setSnackBarOpen(true);
+      setTimeout(() => {
+        //autoHideDuration attr was not working
+        hideSnackBar();
+      }, 3000);
+    
+
   };
 
   const updateGist =async (id:string) => {
@@ -78,7 +93,10 @@ const useProfilePage = () =>{
     handleChangeContent,
     createGist,
     updateGist,
-    location
+    location,
+    snackBarOpen,
+    snackBarText
+
   };
 }
 export default useProfilePage;

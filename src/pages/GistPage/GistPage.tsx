@@ -33,9 +33,11 @@ const GistPage = () => {
   const [gistData, setGistData] = useState<any>([]);
   const [loader, setLoader] = useState(true);
   const [searchState, setSearchState] = useState("");
+  const [isStarred, setIsStarred] = useState(0);
 
   let user: any = localStorage.getItem("user");
   user = JSON.parse(user);
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     fetch(`https://api.github.com/gists/${id}`)
@@ -46,6 +48,15 @@ const GistPage = () => {
         console.log("gist result", result);
         setLoader(false);
       });
+    fetch(`https://api.github.com/gists/${id}/star`, {
+      headers: {
+        Authorization: `token ${accessToken}`,
+      },
+    }).then((response) => {
+      if (response.status === 204) {
+        setIsStarred(1);
+      }
+    });
   }, []);
 
   const editSearchState = (e: any) => {
@@ -78,7 +89,7 @@ const GistPage = () => {
                 </p>
               </Grid>
               <Grid item lg={2}>
-                <StarWithCount id={gistData[0]?.id} count={0} />
+                <StarWithCount id={gistData[0]?.id} count={isStarred} />
                 <ForkWithCount
                   enable={
                     gistData[0]?.owner?.login === user?.login ? false : true

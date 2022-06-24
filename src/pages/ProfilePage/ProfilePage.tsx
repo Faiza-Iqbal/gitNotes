@@ -1,5 +1,6 @@
 // lib
 import { useState } from "react";
+import { Snackbar } from "@mui/material";
 
 // src
 import useProfilePage from "./useProfilePage";
@@ -23,6 +24,8 @@ const ProfilePage = () => {
     createGist,
     updateGist,
     location,
+    snackBarOpen,
+    snackBarText,
   } = useProfilePage();
 
   const editSearchState = (e: any) => {
@@ -31,6 +34,7 @@ const ProfilePage = () => {
 
   return (
     <>
+      <Snackbar open={snackBarOpen} message={snackBarText} />
       <Header editSearchState={editSearchState} searchState={searchState} />
       <ContainerStyled>
         <form className="outerWrapper pd-50">

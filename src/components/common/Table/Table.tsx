@@ -23,6 +23,8 @@ type TableComponentProps = {
 };
 const TableComponent = ({ apiData }: TableComponentProps) => {
   const navigate = useNavigate();
+  let user: any = localStorage.getItem("user");
+  user = JSON.parse(user);
 
   // Function to change route and navigate to it
   const goToRoute = (url: string, param: string | number = "") => {
@@ -91,7 +93,9 @@ const TableComponent = ({ apiData }: TableComponentProps) => {
                 <TableCell>
                   <span>
                     <StarIconComponent id={row?.id} count={0} />
-                    <ForkIcon id={row?.id} count={0} />
+                    {row?.owner?.login !== user?.login && (
+                      <ForkIcon id={row?.id} count={0} />
+                    )}
                   </span>
                 </TableCell>
               </TableRow>

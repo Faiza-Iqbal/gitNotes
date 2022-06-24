@@ -89,8 +89,7 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
                   className="anchorButton"
                   href="https://github.com/login/oauth/authorize?client_id=5ca6d8cb11bc7bfa2c3c&scope=gist%20user"
                 >
-                  {" "}
-                  Login{" "}
+                  Login
                 </a>
               )}
               {user && (

@@ -60,6 +60,6 @@ export const removeGist = async (gist_id: string) => {
       Authorization: `token ${accessToken}`,
     },
   });
-  if (response.status === 204) return true;
+  if (response.status === 204) return gist_id;
   else return false;
 };
