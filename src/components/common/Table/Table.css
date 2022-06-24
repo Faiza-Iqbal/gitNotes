@@ -14,25 +14,17 @@ thead tr th, tbody td{
     border: 1px solid #5acba1;
     border-radius: 3px;
   }
-  
-  /* When the checkbox is checked, add a blue background */
   input:checked ~ .checkmark {
     background-color: #2196F3;
   }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
   .checkmark:after {
     content: "";
     position: absolute;
     display: none;
   }
-  
-  /* Show the checkmark when checked */
   input:checked ~ .checkmark:after {
     display: block;
   }
-  
-  /* Style the checkmark/indicator */
    .checkmark:after {
     left: 9px;
     top: 5px;

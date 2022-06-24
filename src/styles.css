@@ -2,37 +2,42 @@ body {
   margin: 0;
   font-family: Helvetica, sans-serif;
 }
-p{margin: 0;}
+p {margin: 0;}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.greenActive{
-  width: 40px;
-  height: 30px;
-  color: lightseagreen;
- 
-}
-.fa-border-all.greenActive{
-  border-right: 1px solid lightseagreen;
-}
- .svg-inline--fa.listIcon {
-  width: 40px;
-  height: 30px;
+.listIcon {
+  width: 40px !important;
+  height: 30px !important;
   color: lightgray;
+  margin-top: 3px;
 }
-.svg-inline--fa.gridIcon{
+.gridIcon{
   border-right: 1px solid lightgray;
-  width: 40px;
-  height: 30px;
+  width: 40px !important;
+  height: 30px !important;
   color: lightgray;
 }
+.gridIcon.greenActive{
+  border-right: 1px solid lightseagreen;
+  width: 40px !important;
+  height: 30px !important;
+  color: lightseagreen;
+}
+.greenActive.listIcon{
+  margin-top: 3px !important;
+  width: 40px !important;
+  height: 30px !important;
+  color: lightseagreen;
+}
+
 /* Grid css */
 .css-gem0ov-MuiPaper-root{
   box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
--webkit-box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
--moz-box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
-border-radius: 10px !important;
+  -webkit-box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
+  -moz-box-shadow: 0px 2px 8px -1px rgba(0,0,0,0.75) !important;
+  border-radius: 10px !important;
 }
 @media screen and (max-width:768px) {
   .container{

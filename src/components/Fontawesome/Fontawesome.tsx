@@ -1,9 +1,12 @@
+// lib
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-interface Props{
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+
+interface FontAwesomeProps {
   faIcon: IconProp;
 }
-const FontAwesome: React.FC<Props> = ({ faIcon }) => {
-  return <FontAwesomeIcon icon={faIcon}></FontAwesomeIcon>;
+
+const FontAwesome: React.FC<FontAwesomeProps> = ({ faIcon }) => {
+  return <FontAwesomeIcon icon={faIcon} />;
 };
 export default FontAwesome;

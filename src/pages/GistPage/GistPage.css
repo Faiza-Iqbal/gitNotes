@@ -10,21 +10,34 @@ section.lfLQWy{
     padding-bottom: 50px;
 }
 span{
-    font-size: 13px;
+    font-size: 12px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 .counter {
     border: 1px solid;
-    padding: 1px 10px;
+    padding: 1px 7px;
     border-radius: 5px;
     color: gray;
     margin: 0px 3px;
+    font-size: 10px;
 }
 .blueIcon{
-    color: blue;
+    color: royalblue;
+    width: 18px !important;
+    height: 16px !important;
+}
+.blueIcon.forkIcon{
+    width: 10px !important;
+    margin-right: 3px;
 }
 .spanWrap {
-    margin-right: 15px;
-    cursor:pointer
+    margin-right: 10px;
+    cursor:pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .innerWrapper .gistContentWrapper pre{

@@ -24,7 +24,7 @@ input[type=text]:focus, textarea:focus{
     padding-top: 0px;
     padding-bottom: 30px;
 }
-.greenButton{
+.submitButton{
     background-color: #5acba1;
     color: #fff;
     border: none;

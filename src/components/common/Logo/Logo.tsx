@@ -1,4 +1,5 @@
 import { Logo } from "../../../styles/Logo.style";
+
 interface Props {
   url: string;
   logo: string;
@@ -6,9 +7,9 @@ interface Props {
 }
 const LogoComponent: React.FC<Props> = ({ url, logo, name }) => {
   return (
-    <Logo href={url} >
+    <Logo href={url}>
       <picture>
-        <img src={logo} alt=""/>
+        <img src={logo} alt="" />
       </picture>
       {name}
     </Logo>
