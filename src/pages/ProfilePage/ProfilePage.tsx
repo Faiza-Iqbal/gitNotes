@@ -7,7 +7,6 @@ import useProfilePage from "./useProfilePage";
 import Header from "../../components/common/Header/Header";
 import { ContainerStyled } from "../../styles/Container.style";
 import SubmitButton from "../../components/common/SubmitButton/SubmitButton";
-// import ViewFileContent from "../../components/common/ViewFileContent/ViewFileContent";
 
 // style
 import "./ProfilePage.css";

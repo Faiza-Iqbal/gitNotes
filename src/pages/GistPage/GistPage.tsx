@@ -1,6 +1,4 @@
 // lib
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -19,7 +17,7 @@ import { showDateInDays } from "../../utils/GenericFunctions/GenericFunctions";
 
 // style
 import "./GistPage.css";
-import userContext from "../../context/userContext";
+import useGistPage from "./useGistPage";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -30,36 +28,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const GistPage = () => {
-  const { id } = useParams();
-  const [gistData, setGistData] = useState<any>([]);
-  const [loader, setLoader] = useState(true);
-  const [searchState, setSearchState] = useState("");
-  const [isStarred, setIsStarred] = useState(0);
-  const auth = useContext(userContext);
-
-  useEffect(() => {
-    fetch(`https://api.github.com/gists/${id}`)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("gist result", result);
-        setGistData([result]);
-        console.log("gist result", result);
-        setLoader(false);
-      });
-    fetch(`https://api.github.com/gists/${id}/star`, {
-      headers: {
-        Authorization: `token ${auth?.accessToken}`,
-      },
-    }).then((response) => {
-      if (response.status === 204) {
-        setIsStarred(1);
-      }
-    });
-  }, []);
-
-  const editSearchState = (e: any) => {
-    setSearchState(e.target.value);
-  };
+  const { gistData, loader, searchState, isStarred, auth, editSearchState } =
+    useGistPage();
 
   return (
     <>
