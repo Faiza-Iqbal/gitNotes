@@ -1,6 +1,10 @@
 // lib
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Snackbar } from "@mui/material";
+
+// src
+import userContext from "../../../context/userContext";
+
 // Font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCodeFork } from "@fortawesome/free-solid-svg-icons";
@@ -12,14 +16,13 @@ const ForkIcon = ({ id, count }: any) => {
   const [forkCount, setForkCount] = useState(count);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [snackBarText, setSnackBarTextOpen] = useState("");
-
-  const user = localStorage.getItem("user");
+  const auth = useContext(userContext);
 
   const hideSnackBar = () => setSnackBarOpen(false);
 
   const forkAGist = async (id: string) => {
     if (forkCount > 0) return;
-    if (user) {
+    if (auth?.user) {
       let response = await forkGist(id);
       if (response) setForkCount(forkCount + 1);
       setSnackBarTextOpen("This gist has been Successfully forked");

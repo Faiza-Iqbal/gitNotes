@@ -1,22 +1,18 @@
-// src
-import { useEffect, useState } from "react";
-import Gists from "../../components/common/Gists/Gists";
+// lib
+import { useContext, useEffect, useState } from "react";
 
-// hooks
-import useFetch from "../../hooks/useFetch";
+// src
+import Gists from "../../components/common/Gists/Gists";
+import userContext from "../../context/userContext";
 
 const YourGists = () => {
-  const accessToken = localStorage.getItem("accessToken");
+  const auth = useContext(userContext);
   const [gists, setGists] = useState([]);
-  // const apiData = useFetch("https://api.github.com/gists", {
-  //   headers: {
-  //     Authorization: `token ${accessToken}`,
-  //   },
-  // });
+
   const getGists = async () => {
     const res = await fetch("https://api.github.com/gists", {
       headers: {
-        Authorization: `token ${accessToken}`,
+        Authorization: `token ${auth?.accessToken}`,
       },
     });
     const data = await res.json();

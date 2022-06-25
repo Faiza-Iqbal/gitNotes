@@ -1,11 +1,10 @@
+import { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import userContext from "../../../context/userContext";
 
-import { Route } from "react-router-dom";
-import LandingPage from "../../../pages/LandingPage/LandingPage";
-const user = localStorage.getItem('user');
-const RouteRequiresLogin = (props:any) => {
-   return (
-    <Route {...props}>{user ? props.children : <LandingPage/>}</Route>
-   );
+const RouteRequiresLogin = () => {
+  const auth = useContext(userContext);
+  return auth?.user ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default RouteRequiresLogin;

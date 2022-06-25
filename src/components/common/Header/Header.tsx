@@ -1,5 +1,5 @@
 // lib
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
@@ -16,9 +16,10 @@ import companyDetails from "../../../data/companyDetails";
 import LogoComponent from "../Logo/Logo";
 import Navbar from "../Navbar/Navbar";
 import NavbarItem from "../Navbar/NavbarItem";
+import userContext from "../../../context/userContext";
 
 // data
-import { CLIENT_DATA } from "../../../data/clientData";
+// import { CLIENT_DATA } from "../../../data/clientData";
 
 // style
 import "./Header.css";
@@ -31,10 +32,7 @@ type HeaderProps = {
 const Header = ({ editSearchState, searchState }: HeaderProps) => {
   const [menu, setMenu] = useState("");
   const navigate = useNavigate();
-
-  let user: any = localStorage.getItem("user");
-  const accessToken = localStorage.getItem("accessToken");
-  user = JSON.parse(user);
+  const auth = useContext(userContext);
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     setMenu(event.target.value);
@@ -84,7 +82,7 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
               <SearchIcon className="searchIcon" />
             </NavbarItem>
             <NavbarItem>
-              {!user && (
+              {!auth?.user && (
                 <a
                   className="anchorButton"
                   href="https://github.com/login/oauth/authorize?client_id=5ca6d8cb11bc7bfa2c3c&scope=gist%20user"
@@ -92,11 +90,14 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
                   Login
                 </a>
               )}
-              {user && (
+              {auth?.user && (
                 <>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="demo-simple-select-standard-label">
-                      <Avatar src={user?.avatar_url} alt={user?.login} />
+                      <Avatar
+                        src={auth?.user?.avatar_url}
+                        alt={auth?.user?.login}
+                      />
                     </InputLabel>
                     <Select
                       labelId="demo-simple-select-standard-label"
@@ -106,7 +107,7 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
                       label="Menu"
                       className="avatarDropDown"
                     >
-                      <MenuItem>Signed In as {user?.login}</MenuItem>
+                      <MenuItem>Signed In as {auth?.user?.login}</MenuItem>
                       <MenuItem>
                         {" "}
                         <a className="plainAnchor" href="/create-gist">
@@ -141,7 +142,7 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
                           target="_blank"
                           className="plainAnchor"
                           rel="noreferrer"
-                          href={user?.html_url}
+                          href={auth?.user?.html_url}
                         >
                           {" "}
                           Your GitHub Profile{" "}

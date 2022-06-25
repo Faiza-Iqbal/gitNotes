@@ -1,5 +1,5 @@
 // lib
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,20 +11,20 @@ import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import { Avatar, Grid, Typography } from "@mui/material";
 
-// data
-import { tableHeading } from "../../../data/tableData";
-
 // src
 import StarIconComponent from "../StarIconComponent/StarIconComponent";
 import ForkIcon from "../ForkIcon/ForkIcon";
+import userContext from "../../../context/userContext";
+
+// data
+import { tableHeading } from "../../../data/tableData";
 
 type TableComponentProps = {
   apiData: any;
 };
 const TableComponent = ({ apiData }: TableComponentProps) => {
   const navigate = useNavigate();
-  let user: any = localStorage.getItem("user");
-  user = JSON.parse(user);
+  const auth = useContext(userContext);
 
   // Function to change route and navigate to it
   const goToRoute = (url: string, param: string | number = "") => {
@@ -93,7 +93,7 @@ const TableComponent = ({ apiData }: TableComponentProps) => {
                 <TableCell>
                   <span>
                     <StarIconComponent id={row?.id} count={0} />
-                    {row?.owner?.login !== user?.login && (
+                    {row?.owner?.login !== auth?.user?.login && (
                       <ForkIcon id={row?.id} count={0} />
                     )}
                   </span>

@@ -1,5 +1,5 @@
 // lib
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
@@ -19,6 +19,7 @@ import { showDateInDays } from "../../utils/GenericFunctions/GenericFunctions";
 
 // style
 import "./GistPage.css";
+import userContext from "../../context/userContext";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -34,10 +35,7 @@ const GistPage = () => {
   const [loader, setLoader] = useState(true);
   const [searchState, setSearchState] = useState("");
   const [isStarred, setIsStarred] = useState(0);
-
-  let user: any = localStorage.getItem("user");
-  user = JSON.parse(user);
-  const accessToken = localStorage.getItem("accessToken");
+  const auth = useContext(userContext);
 
   useEffect(() => {
     fetch(`https://api.github.com/gists/${id}`)
@@ -50,7 +48,7 @@ const GistPage = () => {
       });
     fetch(`https://api.github.com/gists/${id}/star`, {
       headers: {
-        Authorization: `token ${accessToken}`,
+        Authorization: `token ${auth?.accessToken}`,
       },
     }).then((response) => {
       if (response.status === 204) {
@@ -92,7 +90,9 @@ const GistPage = () => {
                 <StarWithCount id={gistData[0]?.id} count={isStarred} />
                 <ForkWithCount
                   enable={
-                    gistData[0]?.owner?.login === user?.login ? false : true
+                    gistData[0]?.owner?.login === auth?.user?.login
+                      ? false
+                      : true
                   }
                   id={gistData[0]?.id}
                   count={0}

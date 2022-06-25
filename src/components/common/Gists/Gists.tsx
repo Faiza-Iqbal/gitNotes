@@ -1,4 +1,5 @@
 // lib
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -14,6 +15,7 @@ import StarWithCount from "../StarWithCount/StarWithCount";
 import ForkWithCount from "../ForkWithCount/ForkWithCount";
 import EditGist from "../EditGist/EditGist";
 import RemoveGist from "../RemoveGist/RemoveGist";
+import userContext from "../../../context/userContext";
 
 // utils
 import {
@@ -23,8 +25,6 @@ import {
 
 // Component css
 import "./Gists.css";
-import { useEffect, useState } from "react";
-import { json } from "stream/consumers";
 
 // Material styled Item
 const Item = styled(Paper)(({ theme }) => ({
@@ -45,13 +45,11 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
   const [searchState, setSearchState] = useState("");
   const [apiDataState, setApiDataState] = useState(apiData);
   const navigate = useNavigate();
+  const auth = useContext(userContext);
 
   useEffect(() => {
     setApiDataState(apiData);
   }, [apiData]);
-
-  let user: any = localStorage.getItem("user");
-  user = JSON.parse(user);
 
   const goToRoute = (url: string, param: string | number = "") => {
     let pageUrl = url;
@@ -92,8 +90,8 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                 <Grid container alignItems="center">
                   <Grid item>
                     <Avatar
-                      src={user?.avatar_url}
-                      alt={user?.login}
+                      src={auth?.user?.avatar_url}
+                      alt={auth?.user?.login}
                       style={{
                         width: "250px",
                         height: "250px",
@@ -107,13 +105,13 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                         textAlign: "center",
                       }}
                     >
-                      {user?.login}
+                      {auth?.user?.login}
                     </Typography>
                     <a
                       className="blueAnchor"
                       target="_blank"
                       rel="noreferrer"
-                      href={user.html_url}
+                      href={auth?.user.html_url}
                     >
                       View GitHub Profile{" "}
                     </a>
@@ -142,7 +140,7 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                         </p>
                       </Grid>
                       <Grid item lg={5}>
-                        {apiItem?.owner?.login === user?.login && (
+                        {apiItem?.owner?.login === auth?.user?.login && (
                           <>
                             <EditGist apiItem={apiItem} />
                             <RemoveGist
@@ -157,7 +155,9 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                         />
                         <ForkWithCount
                           enable={
-                            apiItem?.owner?.login === user?.login ? false : true
+                            apiItem?.owner?.login === auth?.user?.login
+                              ? false
+                              : true
                           }
                           id={apiItem?.id}
                           count={0}

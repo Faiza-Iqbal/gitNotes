@@ -1,6 +1,7 @@
 // lib
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
+import userContext from "../../context/userContext";
 
 
 // utils
@@ -19,8 +20,7 @@ const useProfilePage = () =>{
   const [gistDesc, setGistDesc] = useState(location.state ?
     location?.state?.description : "");
   const [gistContent, setGistContent] = useState(location.state ? location?.state.fileContent : "");
-
-  let accessToken = localStorage.getItem("accessToken");
+  const auth = useContext(userContext);
 
   const handleChangeDesc = (e: any) => {
     setGistDesc(e.target.value);
@@ -50,7 +50,7 @@ const useProfilePage = () =>{
     await callToApi("https://api.github.com/gists", {
       method: "POST",
       headers: {
-        Authorization: `token ${accessToken}`,
+        Authorization: `token ${auth?.accessToken}`,
       },
       body: JSON.stringify(requestData),
     });
@@ -76,7 +76,7 @@ const useProfilePage = () =>{
     await callToApi(`https://api.github.com/gists/${id}`, {
         method: "POST",
         headers: {
-          Authorization: `token ${accessToken}`,
+          Authorization: `token ${auth?.accessToken}`,
         },
         body: JSON.stringify(requestData),
       });
