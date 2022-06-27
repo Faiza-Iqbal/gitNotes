@@ -9,7 +9,7 @@ const LogoComponent: React.FC<Props> = ({ url, logo, name }) => {
   return (
     <Logo href={url}>
       <picture>
-        <img src={logo} alt="" />
+        <img src={logo} alt="logo" />
       </picture>
       {name}
     </Logo>

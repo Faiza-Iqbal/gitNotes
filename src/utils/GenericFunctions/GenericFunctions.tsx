@@ -63,3 +63,14 @@ export const removeGist = async (gist_id: string) => {
   if (response.status === 204) return gist_id;
   else return false;
 };
+
+export const goToRoute = (url: string, param: string | number = "") => {
+  let pageUrl = url;
+  if (param) pageUrl = `${url}/${param}`;
+  return pageUrl;
+};
+
+export const deleteUser = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("accessToken");
+};

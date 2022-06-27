@@ -1,4 +1,7 @@
+// lib
 import { useEffect, useState } from "react";
+
+// data
 import { CLIENT_DATA } from "../../data/clientData";
 
 const useLandingPage = () =>{
@@ -18,22 +21,15 @@ const useLandingPage = () =>{
         });
   
       const url = window.location.href;
-  
-      if (url.includes("?code")) {
+
+      const loginWithGitHub =() =>{
         const code: string = url.split("?code=")[1];
   
-        let requestData = {
-          code: code,
-          client_id: CLIENT_DATA.id,
-          client_secret: CLIENT_DATA.secret,
-        };
-  
         fetch(
-          `https://github.com/login/oauth/access_token?code=${code}&client_id=5ca6d8cb11bc7bfa2c3c&client_secret=1e18a58399d5723ce2e6165980142795c9f0884a`,
+          `https://github.com/login/oauth/access_token?code=${code}&client_id=${CLIENT_DATA.id}&client_secret=${CLIENT_DATA.secret}`,
           {
             method: "post",
             headers: { Accept: "application/json" },
-            body: JSON.stringify(requestData),
           }
         )
           .then((response) => response.json())
@@ -54,6 +50,10 @@ const useLandingPage = () =>{
                 }
               });
           });
+      }
+    
+      if (url.includes("?code")) {
+        loginWithGitHub();
       }
     }, []);
   

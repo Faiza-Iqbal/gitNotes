@@ -18,7 +18,7 @@ type StarIconComponentProp = {
 const StarIconComponent = ({ id, count }: StarIconComponentProp) => {
   const [starCount, setStarCount] = useState(count);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
-  const [snackBarText, setSnackBarTextOpen] = useState("");
+  const [snackBarText, setSnackBarText] = useState("");
   const auth = useContext(userContext);
 
   const hideSnackBar = () => setSnackBarOpen(false);
@@ -28,10 +28,10 @@ const StarIconComponent = ({ id, count }: StarIconComponentProp) => {
     if (auth?.user) {
       let response = await starGist(id);
       if (response) setStarCount(starCount + 1);
-      setSnackBarTextOpen("This gist has been Starred");
+      setSnackBarText("This gist has been Starred");
       setSnackBarOpen(true);
     } else {
-      setSnackBarTextOpen("You need to login to star a gist");
+      setSnackBarText("You need to login to star a gist");
       setSnackBarOpen(true);
     }
     setTimeout(() => {

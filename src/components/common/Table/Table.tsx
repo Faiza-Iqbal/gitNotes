@@ -19,19 +19,15 @@ import userContext from "../../../context/userContext";
 // data
 import { tableHeading } from "../../../data/tableData";
 
+// utils
+import { goToRoute } from "../../../utils/GenericFunctions/GenericFunctions";
+
 type TableComponentProps = {
   apiData: any;
 };
 const TableComponent = ({ apiData }: TableComponentProps) => {
   const navigate = useNavigate();
   const auth = useContext(userContext);
-
-  // Function to change route and navigate to it
-  const goToRoute = (url: string, param: string | number = "") => {
-    let pageUrl = url;
-    if (param) pageUrl = `${url}/${param}`;
-    navigate(pageUrl);
-  };
 
   // Pagination
   const [page, setPage] = useState(0);
@@ -71,7 +67,7 @@ const TableComponent = ({ apiData }: TableComponentProps) => {
                   <input type="checkbox" />
                 </TableCell>
                 <TableCell
-                  onClick={() => goToRoute("/gist", row?.id)}
+                  onClick={() => navigate(goToRoute("/gist", row?.id))}
                   align="left"
                   style={{ cursor: "pointer" }}
                 >

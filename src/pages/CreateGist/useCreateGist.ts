@@ -3,11 +3,10 @@ import { useContext, useState } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 
-
 // utils
 import { callToApi } from "../../utils/GenericFunctions/CallToApi";
 
-const useProfilePage = () =>{
+const useCreateGist = () =>{
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [snackBarText, setSnackBarTextOpen] = useState("");
 
@@ -80,7 +79,6 @@ const useProfilePage = () =>{
         },
         body: JSON.stringify(requestData),
       });
-    alert("Gist updated successfully");
     navigate('/your-gists');
   };
 
@@ -99,4 +97,4 @@ const useProfilePage = () =>{
 
   };
 }
-export default useProfilePage;
+export default useCreateGist;

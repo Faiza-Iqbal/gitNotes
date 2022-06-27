@@ -4,7 +4,7 @@ import userContext from "../../context/userContext";
 
 const useGistPage = () =>{
     const { id } = useParams();
-    const [gistData, setGistData] = useState<any>([]);
+    const [gistData, setGistData] = useState<any>({});
     const [loader, setLoader] = useState(true);
     const [searchState, setSearchState] = useState("");
     const [isStarred, setIsStarred] = useState(0);
@@ -14,7 +14,7 @@ const useGistPage = () =>{
       fetch(`https://api.github.com/gists/${id}`)
         .then((response) => response.json())
         .then((result) => {
-          setGistData([result]);
+          setGistData(result);
           setLoader(false);
         });
       fetch(`https://api.github.com/gists/${id}/star`, {

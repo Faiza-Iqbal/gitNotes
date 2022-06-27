@@ -1,3 +1,4 @@
+// lib
 import { useState, useEffect } from "react";
 
 const useFetch = (url: string, headers: any = {}) => {
@@ -8,9 +9,8 @@ const useFetch = (url: string, headers: any = {}) => {
       .then((response) => response.json())
       .then((resp) => {
         setData(resp);
-        console.log("resp", resp);
       });
-  }, [url]);
+  }, [url, headers]);
 
   return data;
 };

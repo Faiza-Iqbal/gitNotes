@@ -19,6 +19,7 @@ import userContext from "../../../context/userContext";
 
 // utils
 import {
+  goToRoute,
   removeGist,
   showDateInDays,
 } from "../../../utils/GenericFunctions/GenericFunctions";
@@ -41,7 +42,6 @@ type GistsProps = {
   isStarred: number;
 };
 const Gists = ({ apiData, isStarred }: GistsProps) => {
-  console.log("apiData", apiData);
   const [searchState, setSearchState] = useState("");
   const [apiDataState, setApiDataState] = useState(apiData);
   const navigate = useNavigate();
@@ -51,23 +51,13 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
     setApiDataState(apiData);
   }, [apiData]);
 
-  const goToRoute = (url: string, param: string | number = "") => {
-    let pageUrl = url;
-    if (param) pageUrl = `${url}/${param}`;
-    navigate(pageUrl);
-  };
-
   const removeAGist = async (id: string) => {
     let response = await removeGist(id);
     if (response) {
-      apiData = apiDataState.filter((apiItem: any) => {
+      const filteredGists = apiDataState.filter((apiItem: any) => {
         if (apiItem?.id !== id) return true;
       });
-      setApiDataState(JSON.parse(JSON.stringify(apiData)));
-      setTimeout(() => {
-        window.location.href = "/your-gists";
-      }, 1000);
-      console.log("filteredGists", apiData);
+      setApiDataState(filteredGists);
       return response;
     }
   };
@@ -120,7 +110,7 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
               </Grid>
               <Grid item xs={2} sm={8} md={8}>
                 {apiDataState.map((apiItem: any, index: number) => (
-                  <div key={`${index}`} className="pd-btm50">
+                  <div key={`${apiItem?.id}`} className="pd-btm50">
                     <Grid container alignItems="center" className="pd-btm50">
                       <Grid item lg={1}>
                         <Avatar
@@ -164,7 +154,9 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                         />
                       </Grid>
                     </Grid>
-                    <Item onClick={() => goToRoute("/gist", apiItem?.id)}>
+                    <Item
+                      onClick={() => navigate(goToRoute("/gist", apiItem?.id))}
+                    >
                       <Grid container alignItems="center">
                         {apiData.length === 0 && (
                           <h3>You Have No starred Gists Yet</h3>

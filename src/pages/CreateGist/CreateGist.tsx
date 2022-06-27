@@ -3,15 +3,15 @@ import { useState } from "react";
 import { Snackbar } from "@mui/material";
 
 // src
-import useProfilePage from "./useProfilePage";
+import useCreateGist from "./useCreateGist";
 import Header from "../../components/common/Header/Header";
 import { ContainerStyled } from "../../styles/Container.style";
 import SubmitButton from "../../components/common/SubmitButton/SubmitButton";
 
 // style
-import "./ProfilePage.css";
+import "./CreateGist.css";
 
-const ProfilePage = () => {
+const CreateGist = () => {
   const [searchState, setSearchState] = useState("");
   const {
     fileName,
@@ -25,7 +25,7 @@ const ProfilePage = () => {
     location,
     snackBarOpen,
     snackBarText,
-  } = useProfilePage();
+  } = useCreateGist();
 
   const editSearchState = (e: any) => {
     setSearchState(e.target.value);
@@ -70,4 +70,4 @@ const ProfilePage = () => {
     </>
   );
 };
-export default ProfilePage;
+export default CreateGist;

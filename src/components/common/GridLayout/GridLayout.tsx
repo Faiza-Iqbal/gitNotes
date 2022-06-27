@@ -12,7 +12,10 @@ import { Avatar, Typography } from "@mui/material";
 import ViewFileContent from "../ViewFileContent/ViewFileContent";
 
 // utils
-import { showDateInDays } from "../../../utils/GenericFunctions/GenericFunctions";
+import {
+  goToRoute,
+  showDateInDays,
+} from "../../../utils/GenericFunctions/GenericFunctions";
 
 type GridLayoutProps = {
   apiData: any;
@@ -45,13 +48,6 @@ const GridLayout = ({ apiData }: GridLayoutProps) => {
     setPage(0);
   };
 
-  // Navigate to route
-  const goToRoute = (url: string, param: string | number = "") => {
-    let pageUrl = url;
-    if (param) pageUrl = `${url}/${param}`;
-    navigate(pageUrl);
-  };
-
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -64,7 +60,7 @@ const GridLayout = ({ apiData }: GridLayoutProps) => {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((apiItem: any, index: number) => (
               <Grid item xs={2} sm={4} md={4} key={index}>
-                <Item onClick={() => goToRoute("/gist", apiItem?.id)}>
+                <Item onClick={() => navigate(goToRoute("/gist", apiItem?.id))}>
                   <ViewFileContent
                     file={
                       apiItem.files[Object.keys(apiItem?.files)[0]]?.raw_url

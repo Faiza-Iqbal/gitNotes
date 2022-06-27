@@ -1,5 +1,5 @@
 // src
-import ProfilePage from "../ProfilePage/ProfilePage";
+import ProfilePage from "../CreateGist/CreateGist";
 
 const EditGist = () => {
   return <ProfilePage />;

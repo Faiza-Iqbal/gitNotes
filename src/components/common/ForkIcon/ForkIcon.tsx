@@ -15,7 +15,7 @@ import { forkGist } from "../../../utils/GenericFunctions/GenericFunctions";
 const ForkIcon = ({ id, count }: any) => {
   const [forkCount, setForkCount] = useState(count);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
-  const [snackBarText, setSnackBarTextOpen] = useState("");
+  const [snackBarText, setSnackBarText] = useState("");
   const auth = useContext(userContext);
 
   const hideSnackBar = () => setSnackBarOpen(false);
@@ -25,10 +25,10 @@ const ForkIcon = ({ id, count }: any) => {
     if (auth?.user) {
       let response = await forkGist(id);
       if (response) setForkCount(forkCount + 1);
-      setSnackBarTextOpen("This gist has been Successfully forked");
+      setSnackBarText("This gist has been Successfully forked");
       setSnackBarOpen(true);
     } else {
-      setSnackBarTextOpen("You need to login to fork a gist");
+      setSnackBarText("You need to login to fork a gist");
       setSnackBarOpen(true);
     }
     setTimeout(() => {

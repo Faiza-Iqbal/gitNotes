@@ -18,8 +18,11 @@ import Navbar from "../Navbar/Navbar";
 import NavbarItem from "../Navbar/NavbarItem";
 import userContext from "../../../context/userContext";
 
+// utils
+import { deleteUser } from "../../../utils/GenericFunctions/GenericFunctions";
+
 // data
-// import { CLIENT_DATA } from "../../../data/clientData";
+import { CLIENT_DATA } from "../../../data/clientData";
 
 // style
 import "./Header.css";
@@ -55,8 +58,7 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
   //   } else return false;
   // };
   const signOut = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("accessToken");
+    deleteUser();
     navigate("/");
   };
 
@@ -85,7 +87,7 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
               {!auth?.user && (
                 <a
                   className="anchorButton"
-                  href="https://github.com/login/oauth/authorize?client_id=5ca6d8cb11bc7bfa2c3c&scope=gist%20user"
+                  href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_DATA.id}&scope=gist%20user`}
                 >
                   Login
                 </a>
