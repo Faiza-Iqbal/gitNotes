@@ -2,37 +2,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import TablePagination from "@mui/material/TablePagination";
-import { Avatar, Typography } from "@mui/material";
+import {
+  Avatar,
+  Typography,
+  Box,
+  Paper,
+  Grid,
+  TablePagination,
+} from "@mui/material";
 
 // src
 import ViewFileContent from "../ViewFileContent/ViewFileContent";
 
 // utils
-import {
-  goToRoute,
-  showDateInDays,
-} from "../../../utils/GenericFunctions/GenericFunctions";
+import { goToRoute, showDateInDays } from "../../../utils/GenericFunctions";
 
 type GridLayoutProps = {
   apiData: any;
 };
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "left",
-  color: theme.palette.text.secondary,
-  height: 300,
-  cursor: "pointer",
-}));
-
 const GridLayout = ({ apiData }: GridLayoutProps) => {
-  // Pagination
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const navigate = useNavigate();
@@ -104,4 +93,15 @@ const GridLayout = ({ apiData }: GridLayoutProps) => {
     </>
   );
 };
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "left",
+  color: theme.palette.text.secondary,
+  height: 300,
+  cursor: "pointer",
+}));
+
 export default GridLayout;

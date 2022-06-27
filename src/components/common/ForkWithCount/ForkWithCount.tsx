@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCodeFork } from "@fortawesome/free-solid-svg-icons";
 
 // utils
-import { forkGist } from "../../../utils/GenericFunctions/GenericFunctions";
+import { forkGist } from "../../../utils/GenericFunctions";
 
 const ForkWithCount = ({ id, count, enable }: any) => {
   const [forkCount, setForkCount] = useState(count);

@@ -1,8 +1,7 @@
 // lib
 import { useEffect, useState } from "react";
 
-// data
-import { CLIENT_DATA } from "../../data/clientData";
+import { CLIENT_DATA } from "../../constants/clientData";
 
 const useLandingPage = () =>{
     const [tableData, setTableData] = useState([]);

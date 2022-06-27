@@ -1,5 +1,8 @@
+// lib
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+// src
 import userContext from "../../context/userContext";
 
 const useGistPage = () =>{

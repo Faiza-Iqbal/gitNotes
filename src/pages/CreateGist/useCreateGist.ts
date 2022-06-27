@@ -4,7 +4,7 @@ import { useLocation,useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 
 // utils
-import { callToApi } from "../../utils/GenericFunctions/CallToApi";
+import { callToApi } from "../../utils/GenericFunctions";
 
 const useCreateGist = () =>{
   const [snackBarOpen, setSnackBarOpen] = useState(false);

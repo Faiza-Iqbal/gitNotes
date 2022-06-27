@@ -8,7 +8,7 @@ import { Snackbar } from "@mui/material";
 import userContext from "../../../context/userContext";
 
 // utils
-import { starGist } from "../../../utils/GenericFunctions/GenericFunctions";
+import { starGist } from "../../../utils/GenericFunctions";
 
 type StarIconComponentProp = {
   id: string;
@@ -25,8 +25,10 @@ const StarIconComponent = ({ id, count }: StarIconComponentProp) => {
 
   const starAGist = async (id: string) => {
     if (starCount > 0) return;
+
     if (auth?.user) {
       let response = await starGist(id);
+
       if (response) setStarCount(starCount + 1);
       setSnackBarText("This gist has been Starred");
       setSnackBarOpen(true);
@@ -34,6 +36,7 @@ const StarIconComponent = ({ id, count }: StarIconComponentProp) => {
       setSnackBarText("You need to login to star a gist");
       setSnackBarOpen(true);
     }
+
     setTimeout(() => {
       //autoHideDuration attr was not working
       hideSnackBar();

@@ -1,27 +1,29 @@
 // lib
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import TablePagination from "@mui/material/TablePagination";
-import { Avatar, Grid, Typography } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Avatar,
+  TableContainer,
+  TableHead,
+  Grid,
+  Typography,
+  Paper,
+  TablePagination,
+} from "@mui/material";
 
 // src
 import StarIconComponent from "../StarIconComponent/StarIconComponent";
 import ForkIcon from "../ForkIcon/ForkIcon";
 import userContext from "../../../context/userContext";
 import CustomCheckBox from "../CustomCheckBox/CustomCheckBox";
-
-// data
-import { tableHeading } from "../../../data/tableData";
+import { tableHeading } from "../../../constants/tableData";
 
 // utils
-import { goToRoute } from "../../../utils/GenericFunctions/GenericFunctions";
+import { goToRoute } from "../../../utils/GenericFunctions";
 
 // style
 import "./ListLayout.css";
@@ -34,13 +36,13 @@ const ListLayout = ({ apiData }: ListLayoutProps) => {
   const navigate = useNavigate();
   const auth = useContext(userContext);
 
-  // Pagination
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
+
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -50,8 +52,12 @@ const ListLayout = ({ apiData }: ListLayoutProps) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+      <Table
+        className="styledTable"
+        sx={{ minWidth: 650 }}
+        aria-label="simple table"
+      >
+        <TableHead className="styledHead">
           <TableRow>
             <TableCell>
               <CustomCheckBox />
@@ -63,7 +69,7 @@ const ListLayout = ({ apiData }: ListLayoutProps) => {
             ))}
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody className="styledTableBody">
           {apiData
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row: any, index: number) => (

@@ -1,6 +1,5 @@
 // lib
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import RouteRequiresLogin from "./components/common/RouteRequiresLogin/RouteRequiresLogin";
 
 // src
 import GistPage from "./pages/GistPage/GistPage";
@@ -9,9 +8,10 @@ import CreateGist from "./pages/CreateGist/CreateGist";
 import StarredGists from "./pages/StarredGists/StarredGists";
 import YourGists from "./pages/YourGists/YourGists";
 import userContext from "./context/userContext";
+import RouteRequiresLogin from "./components/common/RouteRequiresLogin/RouteRequiresLogin";
 
 // utils
-import { authService } from "./utils/GenericFunctions/authService";
+import { authService } from "./utils/authService";
 
 function App() {
   const auth = authService();
@@ -25,8 +25,8 @@ function App() {
             <Route path="/your-gists" element={<YourGists />} />
             <Route path="/starred-gists" element={<StarredGists />} />
             <Route path="/create-gist" element={<CreateGist />} />
-            <Route path="/gist/:id" element={<GistPage />} />
           </Route>
+          <Route path="/gist/:id" element={<GistPage />} />
         </Routes>
       </Router>
     </userContext.Provider>

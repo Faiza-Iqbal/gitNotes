@@ -13,6 +13,7 @@ const EditGist = ({ apiItem }: any) => {
     apiItem.fileContent = response;
     navigate("/create-gist", { state: apiItem });
   };
+
   return (
     <span className="spanWrap">
       <BorderColorIcon className="blueIcon" />

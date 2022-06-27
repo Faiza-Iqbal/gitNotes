@@ -2,10 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Typography, Box, Paper, Grid } from "@mui/material";
 
 // src
 import Header from "../Header/Header";
@@ -22,25 +19,16 @@ import {
   goToRoute,
   removeGist,
   showDateInDays,
-} from "../../../utils/GenericFunctions/GenericFunctions";
+} from "../../../utils/GenericFunctions";
 
 // style
 import "./Gists.css";
-
-// Material styled Item
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "left",
-  color: theme.palette.text.secondary,
-  height: 200,
-}));
 
 type GistsProps = {
   apiData: any;
   isStarred: number;
 };
+
 const Gists = ({ apiData, isStarred }: GistsProps) => {
   const [searchState, setSearchState] = useState("");
   const [apiDataState, setApiDataState] = useState(apiData);
@@ -53,6 +41,7 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
 
   const removeAGist = async (id: string) => {
     let response = await removeGist(id);
+
     if (response) {
       const filteredGists = apiDataState.filter((apiItem: any) => {
         if (apiItem?.id !== id) return true;
@@ -61,6 +50,7 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
       return response;
     }
   };
+
   const editSearchState = (e: any) => {
     setSearchState(e.target.value);
   };
@@ -182,4 +172,14 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
     </>
   );
 };
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "left",
+  color: theme.palette.text.secondary,
+  height: 200,
+}));
+
 export default Gists;

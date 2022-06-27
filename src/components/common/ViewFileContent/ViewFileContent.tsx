@@ -10,6 +10,7 @@ import "./ViewFileContent.css";
 interface Props {
   file: string;
 }
+
 const ViewFileContent: React.FC<Props> = ({ file }) => {
   const [content, setContent] = useState("");
   const [loader, setLoader] = useState(true);

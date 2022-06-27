@@ -1,5 +1,3 @@
-import { callToApi } from "./CallToApi";
-
 let accessToken = localStorage.getItem("accessToken");
 
 // to convert date-time string to measure time from current date
@@ -73,4 +71,14 @@ export const goToRoute = (url: string, param: string | number = "") => {
 export const deleteUser = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("accessToken");
+};
+
+// for API calls
+export const callToApi = async (route:string, headers:any) => {
+  try {
+    const response = await fetch(route, headers);
+    return response.json();
+  } catch (err) {
+    console.error(`API error: ${err}`);
+  }
 };

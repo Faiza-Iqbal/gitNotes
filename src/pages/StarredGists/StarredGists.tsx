@@ -4,8 +4,6 @@ import { useContext } from "react";
 // src
 import Gists from "../../components/common/Gists/Gists";
 import userContext from "../../context/userContext";
-
-// hooks
 import useFetch from "../../hooks/useFetch";
 
 const StarredGists = () => {

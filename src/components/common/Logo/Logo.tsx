@@ -5,6 +5,7 @@ interface Props {
   logo: string;
   name: string;
 }
+
 const LogoComponent: React.FC<Props> = ({ url, logo, name }) => {
   return (
     <Logo href={url}>

@@ -1,28 +1,28 @@
 // lib
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Avatar } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {
+  Avatar,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 // src
 import { ContainerStyled } from "../../../styles/Container.style";
 import { HeaderContainer } from "../../../styles/HeaderContainer.style";
 import { HeaderStyled } from "./Header.style";
-import companyDetails from "../../../data/companyDetails";
 import LogoComponent from "../Logo/Logo";
 import Navbar from "../Navbar/Navbar";
 import NavbarItem from "../Navbar/NavbarItem";
 import userContext from "../../../context/userContext";
+import companyDetails from "../../../constants/companyDetails";
+import { CLIENT_DATA } from "../../../constants/clientData";
 
 // utils
-import { deleteUser } from "../../../utils/GenericFunctions/GenericFunctions";
-
-// data
-import { CLIENT_DATA } from "../../../data/clientData";
+import { deleteUser } from "../../../utils/GenericFunctions";
 
 // style
 import "./Header.css";
@@ -34,7 +34,6 @@ type HeaderProps = {
 
 const Header = ({ editSearchState, searchState }: HeaderProps) => {
   const [menu, setMenu] = useState("");
-  const navigate = useNavigate();
   const auth = useContext(userContext);
 
   const handleSelectChange = (event: SelectChangeEvent) => {
@@ -57,9 +56,10 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
   //     localStorage.removeItem("accessToken");
   //   } else return false;
   // };
+
   const signOut = () => {
     deleteUser();
-    navigate("/");
+    window.location.href = "/";
   };
 
   return (

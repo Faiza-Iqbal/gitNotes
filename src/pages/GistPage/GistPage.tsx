@@ -1,8 +1,6 @@
 // lib
 import { experimentalStyled as styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, Typography, Paper, Grid } from "@mui/material";
 
 // src
 import Header from "../../components/common/Header/Header";
@@ -14,18 +12,10 @@ import ForkWithCount from "../../components/common/ForkWithCount/ForkWithCount";
 import useGistPage from "./useGistPage";
 
 // utils
-import { showDateInDays } from "../../utils/GenericFunctions/GenericFunctions";
+import { showDateInDays } from "../../utils/GenericFunctions";
 
 // style
 import "./GistPage.css";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "left",
-  color: theme.palette.text.secondary,
-}));
 
 const GistPage = () => {
   const { gistData, loader, searchState, isStarred, auth, editSearchState } =
@@ -83,4 +73,13 @@ const GistPage = () => {
     </>
   );
 };
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "left",
+  color: theme.palette.text.secondary,
+}));
+
 export default GistPage;

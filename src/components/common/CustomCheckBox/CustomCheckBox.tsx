@@ -8,4 +8,5 @@ const CustomCheckBox = () => {
     </label>
   );
 };
+
 export default CustomCheckBox;

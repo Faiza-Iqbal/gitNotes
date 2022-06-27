@@ -5,6 +5,7 @@ type RemoveGistProps = {
   apiItem: any;
   removeAGist: any;
 };
+
 const RemoveGist = ({ apiItem, removeAGist }: RemoveGistProps) => {
   return (
     <span className="spanWrap" onClick={() => removeAGist(apiItem.id)}>
