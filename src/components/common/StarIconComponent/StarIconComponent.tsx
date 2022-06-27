@@ -44,9 +44,9 @@ const StarIconComponent = ({ id, count }: StarIconComponentProp) => {
     <>
       <Snackbar open={snackBarOpen} message={snackBarText} />
       {starCount === 0 && (
-        <StarBorderIcon onClick={() => starAGist(id)} className="greenIcon" />
+        <StarBorderIcon onClick={() => starAGist(id)} className="styledIcon" />
       )}
-      {starCount > 0 && <StarIcon className="greenIcon" />}
+      {starCount > 0 && <StarIcon className="styledIcon" />}
     </>
   );
 };

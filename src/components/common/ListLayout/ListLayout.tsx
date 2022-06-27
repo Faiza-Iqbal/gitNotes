@@ -15,6 +15,7 @@ import { Avatar, Grid, Typography } from "@mui/material";
 import StarIconComponent from "../StarIconComponent/StarIconComponent";
 import ForkIcon from "../ForkIcon/ForkIcon";
 import userContext from "../../../context/userContext";
+import CustomCheckBox from "../CustomCheckBox/CustomCheckBox";
 
 // data
 import { tableHeading } from "../../../data/tableData";
@@ -22,10 +23,14 @@ import { tableHeading } from "../../../data/tableData";
 // utils
 import { goToRoute } from "../../../utils/GenericFunctions/GenericFunctions";
 
-type TableComponentProps = {
+// style
+import "./ListLayout.css";
+
+type ListLayoutProps = {
   apiData: any;
 };
-const TableComponent = ({ apiData }: TableComponentProps) => {
+
+const ListLayout = ({ apiData }: ListLayoutProps) => {
   const navigate = useNavigate();
   const auth = useContext(userContext);
 
@@ -49,7 +54,7 @@ const TableComponent = ({ apiData }: TableComponentProps) => {
         <TableHead>
           <TableRow>
             <TableCell>
-              <input type="checkbox" />
+              <CustomCheckBox />
             </TableCell>
             {tableHeading.map((heading, index) => (
               <TableCell align="left" key={`_${index}`}>
@@ -64,7 +69,7 @@ const TableComponent = ({ apiData }: TableComponentProps) => {
             .map((row: any, index: number) => (
               <TableRow key={`${row?.name}_${index}`}>
                 <TableCell>
-                  <input type="checkbox" />
+                  <CustomCheckBox />
                 </TableCell>
                 <TableCell
                   onClick={() => navigate(goToRoute("/gist", row?.id))}
@@ -110,4 +115,4 @@ const TableComponent = ({ apiData }: TableComponentProps) => {
     </TableContainer>
   );
 };
-export default TableComponent;
+export default ListLayout;

@@ -1,7 +1,6 @@
 // lib
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RouteRequiresLogin from "./components/common/RouteRequiresLogin/RouteRequiresLogin";
-import userContext from "./context/userContext";
 
 // src
 import GistPage from "./pages/GistPage/GistPage";
@@ -9,6 +8,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import CreateGist from "./pages/CreateGist/CreateGist";
 import StarredGists from "./pages/StarredGists/StarredGists";
 import YourGists from "./pages/YourGists/YourGists";
+import userContext from "./context/userContext";
 
 // utils
 import { authService } from "./utils/GenericFunctions/authService";

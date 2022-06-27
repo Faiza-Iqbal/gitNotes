@@ -42,7 +42,7 @@ const ForkIcon = ({ id, count }: any) => {
       <Snackbar open={snackBarOpen} message={snackBarText} />
       <FontAwesomeIcon
         onClick={() => forkAGist(id)}
-        className={forkCount ? "forked" : "greenIcon"}
+        className={forkCount ? "forked" : "styledIcon"}
         icon={faCodeFork}
       />
     </>

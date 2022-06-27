@@ -8,14 +8,14 @@ import { ContainerStyled } from "../../styles/Container.style";
 import { Section } from "../../styles/Section.style";
 import { FlexEnd } from "../../styles/FlexEnd.style";
 import { IconButton } from "../../styles/IconButton.style";
-import TableComponent from "../../components/common/Table/Table";
+import ListLayout from "../../components/common/ListLayout/ListLayout";
 import GridLayout from "../../components/common/GridLayout/GridLayout";
 import Loader from "../../components/common/Loader/Loader";
+import useLandingPage from "./useLandingPage";
 
 // style
 import "../../styles.css";
 import "./LandingPage.css";
-import useLandingPage from "./useLandingPage";
 
 const LandingPage: React.FC = () => {
   const {
@@ -46,7 +46,7 @@ const LandingPage: React.FC = () => {
           </FlexEnd>
           <Section>
             {loader && <Loader />}
-            {!showGrid && !loader && <TableComponent apiData={tableData} />}
+            {!showGrid && !loader && <ListLayout apiData={tableData} />}
             {showGrid && !loader && <GridLayout apiData={tableData} />}
           </Section>
         </ContainerStyled>

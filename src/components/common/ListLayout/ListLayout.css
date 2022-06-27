@@ -1,0 +1,11 @@
+thead tr th, tbody td{
+    padding: 15px 0px;
+}
+  Link{
+    text-decoration: none;
+  }
+  tbody .css-1q1u3t4-MuiTableRow-root:hover{
+    box-shadow: 1px 4px 4px 1px #ccc;
+    -webkit-box-shadow: 1px 4px 4px 1px #ccc;
+    -moz-box-shadow: 1px 4px 4px 1px #ccc;
+  }

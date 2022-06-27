@@ -24,7 +24,7 @@ import {
   showDateInDays,
 } from "../../../utils/GenericFunctions/GenericFunctions";
 
-// Component css
+// style
 import "./Gists.css";
 
 // Material styled Item

@@ -35,7 +35,6 @@ const YourGists = () => {
       return;
     }
     const data = await res.json();
-    console.log("data", data);
     if (data) setGists(data);
   };
 

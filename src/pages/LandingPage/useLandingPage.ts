@@ -77,7 +77,6 @@ const useLandingPage = () =>{
         setLoader,
         editSearchState
       };
-
     
 }
 export default useLandingPage;

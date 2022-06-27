@@ -95,15 +95,15 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
               {auth?.user && (
                 <>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-standard-label">
+                    <InputLabel id="select-standard-label">
                       <Avatar
                         src={auth?.user?.avatar_url}
                         alt={auth?.user?.login}
                       />
                     </InputLabel>
                     <Select
-                      labelId="demo-simple-select-standard-label"
-                      id="demo-simple-select-standard"
+                      labelId="select-standard-label"
+                      id="select-standard"
                       value={menu}
                       onChange={handleSelectChange}
                       label="Menu"
