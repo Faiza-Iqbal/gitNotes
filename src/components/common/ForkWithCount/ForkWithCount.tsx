@@ -67,7 +67,7 @@ const ForkWithCount = ({ id, count, enable }: ForkWithCountProps) => {
 const IconStyled = {
   color: royalblue,
   width: 18,
-  height: 16,
+  height: 12,
   marginRight: 3,
 };
 export default ForkWithCount;

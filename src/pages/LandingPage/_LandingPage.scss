@@ -19,14 +19,14 @@
 }
 .styledIcon {
   color: $seaGreen;
-  margin-left: 10;
+  margin-left: 10px;
   cursor: pointer;
 }
 .starred,
 .forked {
   color: $seaGreen;
-  border: 1 solid;
+  border: 1px solid;
   border-radius: 100%;
-  padding: 2;
-  margin-left: 5;
+  padding: 2px;
+  margin-left: 5px;
 }
