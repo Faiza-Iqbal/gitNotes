@@ -1,24 +1,37 @@
 // lib
 import { useNavigate } from "react-router-dom";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import axios from "axios";
+import { royalblue } from "../../../styles/variables";
 
 const EditGist = ({ apiItem }: any) => {
   const navigate = useNavigate();
 
-  const editAGist = async (id: string) => {
-    let resp = await fetch(
-      apiItem?.files[Object.keys(apiItem?.files)[0]]?.raw_url
-    );
-    let response = await resp.text();
-    apiItem.fileContent = response;
-    navigate("/create-gist", { state: apiItem });
+  const editAGist = async () => {
+    try {
+      const url = apiItem?.files[Object.keys(apiItem?.files)[0]]?.raw_url;
+      if (!url) throw new Error();
+
+      let response = await axios.get(url);
+      apiItem.fileContent = response.data;
+
+      navigate("/create-gist", { state: apiItem });
+    } catch (err) {
+      console.log("API error: ", err);
+      return;
+    }
   };
 
   return (
     <span className="spanWrap">
-      <BorderColorIcon className="blueIcon" />
-      <span onClick={() => editAGist(apiItem.id)}>Edit</span>
+      <BorderColorIcon style={IconStyled} />
+      <span onClick={() => editAGist()}>Edit</span>
     </span>
   );
+};
+const IconStyled = {
+  color: royalblue,
+  width: 18,
+  height: 16,
 };
 export default EditGist;

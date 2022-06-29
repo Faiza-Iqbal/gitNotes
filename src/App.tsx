@@ -12,6 +12,7 @@ import RouteRequiresLogin from "./components/common/RouteRequiresLogin/RouteRequ
 
 // utils
 import { authService } from "./utils/authService";
+import "./styles.scss";
 
 function App() {
   const auth = authService();

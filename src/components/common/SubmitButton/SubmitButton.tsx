@@ -1,5 +1,5 @@
 type SubmitButtonProps = {
-  handleSubmit: any;
+  handleSubmit: () => Promise<void>;
   label: string;
 };
 

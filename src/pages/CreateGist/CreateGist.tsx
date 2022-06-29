@@ -5,11 +5,11 @@ import { Snackbar } from "@mui/material";
 // src
 import useCreateGist from "./useCreateGist";
 import Header from "../../components/common/Header/Header";
-import { ContainerStyled } from "../../styles/Container.style";
+import { ContainerStyled } from "../../styles/styled_components";
 import SubmitButton from "../../components/common/SubmitButton/SubmitButton";
 
 // style
-import "./CreateGist.css";
+import "./CreateGist.scss";
 
 const CreateGist = () => {
   const [searchState, setSearchState] = useState("");
@@ -27,7 +27,7 @@ const CreateGist = () => {
     snackBarText,
   } = useCreateGist();
 
-  const editSearchState = (e: any) => {
+  const editSearchState = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchState(e.target.value);
   };
 
@@ -53,7 +53,7 @@ const CreateGist = () => {
             <textarea
               rows={20}
               value={gistContent}
-              onChange={handleChangeContent}
+              onChange={(e) => handleChangeContent(e)}
               placeholder="Enter file content..."
             />
           }
@@ -61,7 +61,9 @@ const CreateGist = () => {
         <div className="outerWrapper pd-50">
           <SubmitButton
             handleSubmit={
-              location.state ? () => updateGist(location.state?.id) : createGist
+              location.state?.id
+                ? () => updateGist(location.state?.id)
+                : createGist
             }
             label={location.state ? "Update" : "Create"}
           />

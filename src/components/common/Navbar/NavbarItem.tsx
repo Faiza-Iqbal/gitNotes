@@ -1,4 +1,4 @@
-import { ListItemStyled } from "../../../styles/ListItemStyled";
+import { ListItemStyled } from "../../../styles/styled_components";
 
 interface Props {
   children: React.ReactNode;

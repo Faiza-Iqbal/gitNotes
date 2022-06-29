@@ -1,3 +1,4 @@
+import axios from "axios";
 let accessToken = localStorage.getItem("accessToken");
 
 // to convert date-time string to measure time from current date
@@ -14,55 +15,78 @@ export const showDateInDays = (created_at_date: string): string => {
 
 // Star a gist call
 export const starGist = async (gist_id: string) => {
-  let resp = await fetch(`https://api.github.com/gists/${gist_id}/star`, {
-    method: "PUT",
-    headers: {
-      Authorization: `token ${accessToken}`,
-      "Content-Length": "0",
-    },
-  });
-  if (resp.status === 204) return true;
-  else return false;
+  try {
+    let resp = await fetch(`https://api.github.com/gists/${gist_id}/star`, {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${accessToken}`,
+        "Content-Length": "0",
+      },
+    });
+    if (resp && resp.status === 204) return true;
+  } catch (err) {
+    console.log("API ERROR", err);
+  }
 };
 
 // Fork a gist call
 export const forkGist = async (gist_id: string) => {
-  let response = await callToApi(
-    `https://api.github.com/gists/${gist_id}/fork`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `token ${accessToken}`,
-      },
-    }
-  );
-  return response;
+  try {
+    let response = await callToApi(
+      `https://api.github.com/gists/${gist_id}/fork`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `token ${accessToken}`,
+        }
+      }
+    );
+    
+    return response;
+
+  } catch (err) {
+    console.log("API ERROR", err);
+  }
 };
 
 // Edit a gist call
 export const editGist = async (gist_id: string) => {
-  let response = await callToApi(`https://api.github.com/gists/${gist_id}`, {
-    method: "POST",
-    headers: {
-      Authorization: `token ${accessToken}`,
-    },
-  });
-  return response;
+
+  try{
+    let response = await callToApi(`https://api.github.com/gists/${gist_id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `token ${accessToken}`,
+      },
+    });
+    
+    return response;
+  }
+  catch(err){
+    console.log("API ERROR", err);
+  }
+
 };
 
 // Remove a gist call
 export const removeGist = async (gist_id: string) => {
-  let response = await fetch(`https://api.github.com/gists/${gist_id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `token ${accessToken}`,
-    },
-  });
-  if (response.status === 204) return gist_id;
-  else return false;
+
+  try{
+    let response = await axios.delete(`https://api.github.com/gists/${gist_id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `token ${accessToken}`,
+      },
+    });
+
+    if (response.status === 204) return gist_id;
+  }
+  catch(err){
+    console.log("API ERROR", err);
+  }
 };
 
-export const goToRoute = (url: string, param: string | number = "") => {
+export const goToRoute = (url: string, param?: string | number) => {
   let pageUrl = url;
   if (param) pageUrl = `${url}/${param}`;
   return pageUrl;
@@ -73,12 +97,20 @@ export const deleteUser = () => {
   localStorage.removeItem("accessToken");
 };
 
-// for API calls
-export const callToApi = async (route:string, headers:any) => {
+// for API calls 
+type headersType = {
+  method: string,
+  headers: {
+    [key: string]: any
+  },
+  body?: string
+}
+export const callToApi = async (route: string, headers: headersType) => {
   try {
     const response = await fetch(route, headers);
     return response.json();
-  } catch (err) {
+  } 
+  catch (err) {
     console.error(`API error: ${err}`);
   }
 };

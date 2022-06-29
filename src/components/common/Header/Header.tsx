@@ -7,12 +7,19 @@ import {
   FormControl,
   Select,
   SelectChangeEvent,
+  Box,
+  Typography,
+  IconButton,
+  Menu,
+  Divider,
+  ListItemIcon,
+  Link,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 // src
-import { ContainerStyled } from "../../../styles/Container.style";
-import { HeaderContainer } from "../../../styles/HeaderContainer.style";
+import { ContainerStyled } from "../../../styles/styled_components";
+import { HeaderContainer } from "../../../styles/styled_components";
 import { HeaderStyled } from "./Header.style";
 import LogoComponent from "../Logo/Logo";
 import Navbar from "../Navbar/Navbar";
@@ -25,7 +32,7 @@ import { CLIENT_DATA } from "../../../constants/clientData";
 import { deleteUser } from "../../../utils/GenericFunctions";
 
 // style
-import "./Header.css";
+import "./Header.scss";
 
 type HeaderProps = {
   editSearchState: any;
@@ -33,29 +40,18 @@ type HeaderProps = {
 };
 
 const Header = ({ editSearchState, searchState }: HeaderProps) => {
-  const [menu, setMenu] = useState("");
   const auth = useContext(userContext);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleSelectChange = (event: SelectChangeEvent) => {
-    setMenu(event.target.value);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  // const signOut = async () => {
-  //   let response = await fetch(
-  //     `https://api.github.com/applications/${CLIENT_DATA.id}/grant`,
-  //     {
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `token ${accessToken}`,
-  //       },
-  //       body: JSON.stringify({ access_token: accessToken }),
-  //     }
-  //   );
-  //   if (response.status === 204) {
-  //     localStorage.removeItem("user");
-  //     localStorage.removeItem("accessToken");
-  //   } else return false;
-  // };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const signOut = () => {
     deleteUser();
@@ -84,7 +80,7 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
               <SearchIcon className="searchIcon" />
             </NavbarItem>
             <NavbarItem>
-              {!auth?.user && (
+              {!auth?.user.login && (
                 <a
                   className="anchorButton"
                   href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_DATA.id}&scope=gist%20user`}
@@ -92,67 +88,87 @@ const Header = ({ editSearchState, searchState }: HeaderProps) => {
                   Login
                 </a>
               )}
-              {auth?.user && (
+              {auth?.user.login && (
                 <>
-                  <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="select-standard-label">
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    <IconButton
+                      onClick={handleClick}
+                      size="small"
+                      sx={{ ml: 2 }}
+                      aria-controls={open ? "account-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                    >
                       <Avatar
+                        sx={{ width: 32, height: 32 }}
                         src={auth?.user?.avatar_url}
                         alt={auth?.user?.login}
                       />
-                    </InputLabel>
-                    <Select
-                      labelId="select-standard-label"
-                      id="select-standard"
-                      value={menu}
-                      onChange={handleSelectChange}
-                      label="Menu"
-                      className="avatarDropDown"
-                    >
-                      <MenuItem>Signed In as {auth?.user?.login}</MenuItem>
-                      <MenuItem>
-                        {" "}
-                        <a className="plainAnchor" href="/create-gist">
-                          Create Gist
-                        </a>
-                      </MenuItem>
-                      <MenuItem>
-                        {" "}
-                        <a className="plainAnchor" href="/your-gists">
-                          Your Gists
-                        </a>
-                      </MenuItem>
-                      <MenuItem>
-                        <a className="plainAnchor" href="/starred-gists">
-                          Starred Gists
-                        </a>
-                      </MenuItem>
-                      <MenuItem>
-                        {" "}
-                        <a
-                          className="plainAnchor"
-                          target="_blank"
-                          rel="noreferrer"
-                          href="https://docs.github.com/en"
-                        >
-                          Help
-                        </a>{" "}
-                      </MenuItem>
-                      <MenuItem>
-                        {" "}
-                        <a
-                          target="_blank"
-                          className="plainAnchor"
-                          rel="noreferrer"
-                          href={auth?.user?.html_url}
-                        >
-                          {" "}
-                          Your GitHub Profile{" "}
-                        </a>
-                      </MenuItem>
-                      <MenuItem onClick={signOut}>Sign Out</MenuItem>
-                    </Select>
-                  </FormControl>
+                    </IconButton>
+                  </Box>
+                  <Menu
+                    anchorEl={anchorEl}
+                    id="account-menu"
+                    open={open}
+                    onClose={handleClose}
+                    onClick={handleClose}
+                    PaperProps={{
+                      elevation: 0,
+                      sx: {
+                        overflow: "visible",
+                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                        mt: 1.5,
+                        "& .MuiAvatar-root": {
+                          width: 32,
+                          height: 32,
+                          ml: -0.5,
+                          mr: 1,
+                        },
+                        "&:before": {
+                          content: '""',
+                          display: "block",
+                          position: "absolute",
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
+                          zIndex: 0,
+                        },
+                      },
+                    }}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                  >
+                    <MenuItem>Signed In as {auth?.user?.login}</MenuItem>
+                    <MenuItem>
+                      <Link className="plainAnchor" href="/create-gist">
+                        Create Gist
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href="/your-gists">Your Gists</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href="/starred-gists">Starred Gists</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href="https://docs.github.com/en">Help</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link href={auth?.user?.html_url}>
+                        Your GitHub Profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={signOut}>Sign Out</MenuItem>
+                  </Menu>
                 </>
               )}
             </NavbarItem>

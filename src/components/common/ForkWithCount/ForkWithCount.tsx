@@ -11,8 +11,15 @@ import { faCodeFork } from "@fortawesome/free-solid-svg-icons";
 
 // utils
 import { forkGist } from "../../../utils/GenericFunctions";
+import { royalblue } from "../../../styles/variables";
 
-const ForkWithCount = ({ id, count, enable }: any) => {
+type ForkWithCountProps = {
+  id: string;
+  count: number;
+  enable: boolean;
+};
+
+const ForkWithCount = ({ id, count, enable }: ForkWithCountProps) => {
   const [forkCount, setForkCount] = useState(count);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [snackBarText, setSnackBarText] = useState("");
@@ -50,11 +57,17 @@ const ForkWithCount = ({ id, count, enable }: any) => {
     <>
       <Snackbar open={snackBarOpen} message={snackBarText} />
       <span className="spanWrap">
-        <FontAwesomeIcon className="blueIcon forkIcon" icon={faCodeFork} />
+        <FontAwesomeIcon style={IconStyled} icon={faCodeFork} />
         <span onClick={() => forkAGist(id)}>Fork</span>
         {/* <span className="counter">{forkCount}</span> */}
       </span>
     </>
   );
+};
+const IconStyled = {
+  color: royalblue,
+  width: 18,
+  height: 16,
+  marginRight: 3,
 };
 export default ForkWithCount;

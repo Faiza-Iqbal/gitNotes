@@ -1,4 +1,4 @@
-import "./CustomCheckBox.css";
+import "./CustomCheckBox.scss";
 
 const CustomCheckBox = () => {
   return (

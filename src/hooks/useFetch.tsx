@@ -1,16 +1,25 @@
 // lib
 import { useState, useEffect } from "react";
+import axios from "axios";
 
-const useFetch = (url: string, headers: any = {}) => {
+type headersType = {
+  headers: {
+    [key: string]: any;
+  };
+};
+const useFetch = (url: string, headers?: headersType) => {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(url, headers)
-      .then((response) => response.json())
-      .then((resp) => {
-        setData(resp);
-      });
-  }, [url, headers]);
+    (async () => {
+      try {
+        const response = await axios.get(url, headers);
+        setData(response.data);
+      } catch (err) {
+        console.log("API ERROR", err);
+      }
+    })();
+  }, []);
 
   return data;
 };

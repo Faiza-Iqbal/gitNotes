@@ -1,0 +1,25 @@
+@import "../../../styles/theme";
+
+pre {
+    counter-reset: line-numbering;
+    font-family: Menlo, Monaco, monospace;
+    padding: 5px;
+    color: $black;
+    border-radius: 3px;
+    word-break: break-word;
+    height: 200px;
+    overflow: hidden;
+    
+    .line{
+        &:before {
+           content: counter(line-numbering);
+           counter-increment: line-numbering;
+           padding-right: 1em;
+           /* space after numbers */
+           width: 1.5em;
+           text-align: right;
+           opacity: 0.5;
+       }
+
+    }
+}

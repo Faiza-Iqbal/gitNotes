@@ -1,3 +1,5 @@
+@import '../../../styles/theme';
+
 .container {
     display: block;
     position: relative;
@@ -23,11 +25,11 @@
       left: 15px;
       height: 15px;
       width: 15px;
-      border: 1px solid #5acba1;
+      border: 1px solid $seaGreen;
       border-radius: 3px;
     }
     input:checked ~ .checkmark {
-      background-color: #5acba1;
+      background-color: $seaGreen;
     }
     .checkmark:after {
       content: "";
@@ -42,7 +44,7 @@
       top: 1px;
       width: 3px;
       height: 7px;
-      border: solid white;
+      border: solid $white;
       border-width: 0 3px 3px 0;
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);

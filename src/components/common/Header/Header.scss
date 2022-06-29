@@ -1,0 +1,66 @@
+@import "../../../styles/theme";
+
+.searchIcon {
+  color: $white;
+  font-size: 14px;
+  position: absolute;
+  right: 20px;
+  top: 7px;
+  opacity: 0.8;
+}
+picture {
+    
+  img {
+    width: 22px;
+    height: 21px;
+    fill: $white;
+    margin-right: 4px;
+  }
+}
+
+.searchBar {
+  background: transparent;
+  color: $white;
+  border: 1px solid $white;
+  border-radius: 3px;
+  padding: 10px;
+  min-width: 300px;
+  opacity: 0.8;
+  margin-right: 15px;
+}
+.searchBar {
+  &:focus-visible {
+    outline: none;
+  }
+}
+.searchBar {
+  &::placeholder {
+    color: $white;
+    font-size: 11px;
+    font-weight: 400;
+  }
+}
+.anchorButton {
+  border: none;
+  background-color: $white;
+  padding: 10px 20px;
+  color: $seaGreen;
+  border-radius: 3px;
+  margin-left: 20px;
+  min-width: 100px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.plainAnchor {
+  text-decoration: none;
+  color: rgba($black, 0.87);
+}
+@media screen and (max-width: 768px) {
+  picture {
+    img {
+      width: 15px;
+      height: 11px;
+    }
+  }
+}

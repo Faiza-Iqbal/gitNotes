@@ -1,0 +1,32 @@
+@import '../../styles/theme';
+
+.listViewHead {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: $grayBackground;
+}
+.listView {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.styledHead {
+  background-color: $grayBackground;
+}
+.styledTableBody {
+  background-color: $white;
+}
+.styledIcon {
+  color: $seaGreen;
+  margin-left: 10;
+  cursor: pointer;
+}
+.starred,
+.forked {
+  color: $seaGreen;
+  border: 1 solid;
+  border-radius: 100%;
+  padding: 2;
+  margin-left: 5;
+}

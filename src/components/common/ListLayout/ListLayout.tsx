@@ -26,7 +26,7 @@ import { tableHeading } from "../../../constants/tableData";
 import { goToRoute } from "../../../utils/GenericFunctions";
 
 // style
-import "./ListLayout.css";
+import "./ListLayout.scss";
 
 type ListLayoutProps = {
   apiData: any;

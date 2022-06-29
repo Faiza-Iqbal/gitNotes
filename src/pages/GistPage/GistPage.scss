@@ -1,0 +1,41 @@
+@import "../../styles/theme";
+
+.innerWrapper {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+.pd-btm50 {
+  padding-bottom: 50px;
+}
+span {
+  font-size: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.counter {
+  border: 1px solid;
+  padding: 1px 7px;
+  border-radius: 5px;
+  color: $trolley-gray;
+  margin: 0px 3px;
+  font-size: 10px;
+}
+
+.spanWrap {
+  margin-right: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerWrapper {
+  .gistContentWrapper {
+    pre {
+      height: 400px;
+      overflow: scroll;
+    }
+  }
+}

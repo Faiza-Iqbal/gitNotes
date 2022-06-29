@@ -4,7 +4,7 @@ import { Avatar, Typography, Paper, Grid } from "@mui/material";
 
 // src
 import Header from "../../components/common/Header/Header";
-import { Section } from "../../styles/Section.style";
+import { Section } from "../../styles/styled_components";
 import Loader from "../../components/common/Loader/Loader";
 import ViewFileContent from "../../components/common/ViewFileContent/ViewFileContent";
 import StarWithCount from "../../components/common/StarWithCount/StarWithCount";
@@ -15,7 +15,7 @@ import useGistPage from "./useGistPage";
 import { showDateInDays } from "../../utils/GenericFunctions";
 
 // style
-import "./GistPage.css";
+import "./GistPage.scss";
 
 const GistPage = () => {
   const { gistData, loader, searchState, isStarred, auth, editSearchState } =

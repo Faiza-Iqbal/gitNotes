@@ -1,0 +1,16 @@
+@import './pages/LandingPage/LandingPage';
+@import './styles/theme';
+
+body, p{
+  margin: 0;
+  font-family: Helvetica, sans-serif;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
+}

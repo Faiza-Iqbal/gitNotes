@@ -1,6 +1,6 @@
 // src
-import { ListStyled } from "../../../styles/ListStyled";
-import { NavStyled } from "../../../styles/NavStyled";
+import { ListStyled } from "../../../styles/styled_components";
+import { NavStyled } from "../../../styles/styled_components";
 
 interface Props {
   children: React.ReactNode;

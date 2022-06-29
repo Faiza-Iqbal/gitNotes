@@ -1,43 +1,91 @@
 // lib
+import axios from "axios";
 import { useContext, useState } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
 
 // utils
 import { callToApi } from "../../utils/GenericFunctions";
 
-const useCreateGist = () =>{
+const useCreateGist = () => {
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [snackBarText, setSnackBarTextOpen] = useState("");
 
   let location: any = useLocation();
   let navigate = useNavigate();
 
-  const [fileName , setFileName] = useState(location.state ?
-    location?.state?.files[Object.keys(location?.state?.files)[0]]
-        ?.filename : "");
-  const [gistDesc, setGistDesc] = useState(location.state ?
-    location?.state?.description : "");
-  const [gistContent, setGistContent] = useState(location.state ? location?.state.fileContent : "");
+  const [fileName, setFileName] = useState(
+    location?.state
+      ? location?.state?.files[Object.keys(location?.state?.files)[0]]?.filename
+      : ""
+  );
+  const [gistDesc, setGistDesc] = useState(
+    location.state ? location?.state?.description : ""
+  );
+  const [gistContent, setGistContent] = useState(
+    location.state ? location?.state.fileContent : ""
+  );
   const auth = useContext(userContext);
 
-  const handleChangeDesc = (e: any) => {
+  const handleChangeDesc = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setGistDesc(e.target.value);
   };
-  const handleChangeFileName = (e: any) => {
+  const handleChangeFileName = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setFileName(e.target.value);
   };
-  const handleChangeContent = (e: any) => {
+  const handleChangeContent = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
     setGistContent(e.target.value);
   };
 
   const hideSnackBar = () => {
     setSnackBarOpen(false);
-    navigate('/your-gists');
-  }
+    navigate("/your-gists");
+  };
 
   const createGist = async () => {
+    let requestData: any = {
+      description: gistDesc,
+      public: true,
+      files: {},
+    };
 
+    requestData.files[fileName] = {
+      content: gistContent,
+    };
+    try {
+      const response = await callToApi("https://api.github.com/gists", {
+        method: "POST",
+        headers: {
+          Authorization: `token ${auth?.accessToken}`,
+        },
+        body: JSON.stringify(requestData),
+      });
+      // console.log("requestData",requestData);
+      // const response = await axios.post("https://api.github.com/gists",  {
+      //   headers: {
+      //     Authorization: `token ${auth?.accessToken}`,
+      //   },
+      //   body: JSON.stringify(requestData),
+      // })
+      console.log("response", response);
+      if (response) {
+        setSnackBarTextOpen("New Gist Created Successfully!");
+        setSnackBarOpen(true);
+        setTimeout(() => {
+          //autoHideDuration attr was not working
+          hideSnackBar();
+        }, 3000);
+      }
+    } catch (err) {
+      console.log("API ERROR", err);
+    }
+  };
+
+  const updateGist = async (id: string) => {
     let requestData: any = {
       description: gistDesc,
       public: true,
@@ -46,40 +94,19 @@ const useCreateGist = () =>{
     requestData.files[fileName] = {
       content: gistContent,
     };
-    await callToApi("https://api.github.com/gists", {
-      method: "POST",
-      headers: {
-        Authorization: `token ${auth?.accessToken}`,
-      },
-      body: JSON.stringify(requestData),
-    });
-      setSnackBarTextOpen("New Gist Created Successfully!");
-      setSnackBarOpen(true);
-      setTimeout(() => {
-        //autoHideDuration attr was not working
-        hideSnackBar();
-      }, 3000);
-    
 
-  };
-
-  const updateGist =async (id:string) => {
-    let requestData: any = {
-        description: gistDesc,
-        public: true,
-        files: {},
-      };
-      requestData.files[fileName] = {
-        content: gistContent,
-      };
-    await callToApi(`https://api.github.com/gists/${id}`, {
+    try {
+      await callToApi(`https://api.github.com/gists/${id}`, {
         method: "POST",
         headers: {
           Authorization: `token ${auth?.accessToken}`,
         },
         body: JSON.stringify(requestData),
       });
-    navigate('/your-gists');
+      navigate("/your-gists");
+    } catch (err) {
+      console.log("API ERROR", err);
+    }
   };
 
   return {
@@ -93,8 +120,7 @@ const useCreateGist = () =>{
     updateGist,
     location,
     snackBarOpen,
-    snackBarText
-
+    snackBarText,
   };
-}
+};
 export default useCreateGist;

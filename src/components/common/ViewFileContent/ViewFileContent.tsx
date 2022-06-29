@@ -1,11 +1,12 @@
 // lib
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 // src
 import Loader from "../Loader/Loader";
 
 // style
-import "./ViewFileContent.css";
+import "./ViewFileContent.scss";
 
 interface Props {
   file: string;
@@ -16,13 +17,17 @@ const ViewFileContent: React.FC<Props> = ({ file }) => {
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    fetch(file)
-      .then((response) => response.text())
-      .then((resp) => {
+    (async () => {
+      try {
+        const response = await fetch(file);
+        const resp = await response.text();
         setContent(resp.replace(/^(.*)$/gm, '<span class="line">$1</span>'));
         setLoader(false);
-      });
-  }, []);
+      } catch (err) {
+        console.log("err", err);
+      }
+    })();
+  }, [file]);
 
   return (
     <>

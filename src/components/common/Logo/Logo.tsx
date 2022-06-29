@@ -1,4 +1,4 @@
-import { Logo } from "../../../styles/Logo.style";
+import { Logo } from "../../../styles/styled_components";
 
 interface Props {
   url: string;

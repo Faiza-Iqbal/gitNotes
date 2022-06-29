@@ -9,6 +9,7 @@ import userContext from "../../../context/userContext";
 
 // utils
 import { starGist } from "../../../utils/GenericFunctions";
+import { royalblue } from "../../../styles/variables";
 
 type StarWithCountProps = {
   id: string;
@@ -47,13 +48,18 @@ const StarWithCount = ({ id, count }: StarWithCountProps) => {
     <>
       <Snackbar open={snackBarOpen} message={snackBarText} />
       <span onClick={() => starAGist(id)} className="spanWrap">
-        {starCount === 0 && <StarBorderIcon className="blueIcon" />}
-        {starCount > 0 && <StarIcon className="blueIcon" />}
+        {starCount === 0 && <StarBorderIcon style={IconStyled} />}
+        {starCount > 0 && <StarIcon style={IconStyled} />}
         <span>Star</span>
         {/* <span className="counter">{starCount}</span> */}
       </span>
     </>
   );
+};
+const IconStyled = {
+  color: royalblue,
+  width: 18,
+  height: 16,
 };
 
 export default StarWithCount;

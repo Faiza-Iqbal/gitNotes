@@ -4,18 +4,17 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 // src
 import Header from "../../components/common/Header/Header";
-import { ContainerStyled } from "../../styles/Container.style";
-import { Section } from "../../styles/Section.style";
-import { FlexEnd } from "../../styles/FlexEnd.style";
-import { IconButton } from "../../styles/IconButton.style";
+import { ContainerStyled } from "../../styles/styled_components";
+import { Section } from "../../styles/styled_components";
+import { FlexEnd } from "../../styles/styled_components";
+import { IconButton } from "../../styles/styled_components";
 import ListLayout from "../../components/common/ListLayout/ListLayout";
 import GridLayout from "../../components/common/GridLayout/GridLayout";
 import Loader from "../../components/common/Loader/Loader";
 import useLandingPage from "./useLandingPage";
 
 // style
-import "../../styles.css";
-import "./LandingPage.css";
+import { seaGreen, defaultGray } from "../../styles/variables";
 
 const LandingPage: React.FC = () => {
   const {
@@ -33,14 +32,12 @@ const LandingPage: React.FC = () => {
       <Section>
         <ContainerStyled>
           <FlexEnd>
-            <IconButton className="gridIcon" onClick={() => setShowGrid(true)}>
-              <GridViewIcon
-                className={showGrid ? "greenActive gridIcon" : "gridIcon"}
-              />
+            <IconButton onClick={() => setShowGrid(true)}>
+              <GridViewIcon style={showGrid ? ActiveIcon : IconStyled} />
             </IconButton>
             <IconButton onClick={() => setShowGrid(false)}>
               <FormatListBulletedIcon
-                className={!showGrid ? "greenActive listIcon" : "listIcon"}
+                style={!showGrid ? ActiveIcon : IconStyled}
               />
             </IconButton>
           </FlexEnd>
@@ -53,5 +50,16 @@ const LandingPage: React.FC = () => {
       </Section>
     </>
   );
+};
+
+const IconStyled = {
+  width: 40,
+  height: 30,
+  color: defaultGray,
+};
+const ActiveIcon = {
+  width: 40,
+  height: 30,
+  color: seaGreen,
 };
 export default LandingPage;

@@ -6,7 +6,7 @@ import { Avatar, Typography, Box, Paper, Grid } from "@mui/material";
 
 // src
 import Header from "../Header/Header";
-import { Section } from "../../../styles/Section.style";
+import { Section } from "../../../styles/styled_components";
 import ViewFileContent from "../ViewFileContent/ViewFileContent";
 import StarWithCount from "../StarWithCount/StarWithCount";
 import ForkWithCount from "../ForkWithCount/ForkWithCount";
@@ -22,7 +22,7 @@ import {
 } from "../../../utils/GenericFunctions";
 
 // style
-import "./Gists.css";
+import "./Gists.scss";
 
 type GistsProps = {
   apiData: any;
@@ -45,13 +45,15 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
     if (response) {
       const filteredGists = apiDataState.filter((apiItem: any) => {
         if (apiItem?.id !== id) return true;
+        else return false;
       });
+
       setApiDataState(filteredGists);
       return response;
     }
   };
 
-  const editSearchState = (e: any) => {
+  const editSearchState = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchState(e.target.value);
   };
 
@@ -66,36 +68,34 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
-              <Grid item xs={2} sm={4} md={4}>
-                <Grid container alignItems="center">
-                  <Grid item>
-                    <Avatar
-                      src={auth?.user?.avatar_url}
-                      alt={auth?.user?.login}
-                      style={{
-                        width: "250px",
-                        height: "250px",
-                        marginBottom: "30px",
-                      }}
-                    />
-                    <Typography
-                      style={{
-                        color: "black",
-                        fontSize: "16px",
-                        textAlign: "center",
-                      }}
-                    >
-                      {auth?.user?.login}
-                    </Typography>
-                    <a
-                      className="blueAnchor"
-                      target="_blank"
-                      rel="noreferrer"
-                      href={auth?.user.html_url}
-                    >
-                      View GitHub Profile{" "}
-                    </a>
-                  </Grid>
+              <Grid container item xs={2} sm={4} md={4}>
+                <Grid item>
+                  <Avatar
+                    src={auth?.user?.avatar_url}
+                    alt={auth?.user?.login}
+                    style={{
+                      width: "250px",
+                      height: "250px",
+                      marginBottom: "30px",
+                    }}
+                  />
+                  <Typography
+                    style={{
+                      color: "black",
+                      fontSize: "16px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {auth?.user?.login}
+                  </Typography>
+                  <a
+                    className="blueAnchor"
+                    target="_blank"
+                    rel="noreferrer"
+                    href={auth?.user.html_url}
+                  >
+                    View GitHub Profile{" "}
+                  </a>
                 </Grid>
               </Grid>
               <Grid item xs={2} sm={8} md={8}>
