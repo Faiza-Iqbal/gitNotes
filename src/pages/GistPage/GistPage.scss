@@ -14,6 +14,12 @@ span {
   justify-content: center;
   align-items: center;
 }
+code{
+  span{
+    word-break: normal;
+    white-space: break-spaces;
+  }
+}
 .counter {
   border: 1px solid;
   padding: 1px 7px;
@@ -35,7 +41,7 @@ span {
   .gistContentWrapper {
     pre {
       height: 400px;
-      overflow: scroll;
+      overflow-y: scroll;
     }
   }
 }

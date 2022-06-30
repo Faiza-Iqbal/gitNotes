@@ -9,7 +9,6 @@
   opacity: 0.8;
 }
 picture {
-    
   img {
     width: 22px;
     height: 21px;
@@ -27,19 +26,17 @@ picture {
   min-width: 300px;
   opacity: 0.8;
   margin-right: 15px;
-}
-.searchBar {
+
   &:focus-visible {
     outline: none;
   }
-}
-.searchBar {
   &::placeholder {
     color: $white;
     font-size: 11px;
     font-weight: 400;
   }
 }
+
 .anchorButton {
   border: none;
   background-color: $white;
@@ -62,5 +59,18 @@ picture {
       width: 15px;
       height: 11px;
     }
+  }
+  .searchBar{
+    padding: 5px;
+    min-width: 200px;
+  }
+  .searchIcon{
+    right: 16px;
+    top: 2px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .searchBar{
+    min-width: 160px;
   }
 }

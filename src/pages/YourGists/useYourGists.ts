@@ -36,12 +36,18 @@ const useYourGists = () =>{
           }, 3000);
           return;
         }
-
         if (res.data) setGists(res.data);
       }
       
       catch(err){
-        console.log("API ERROR", err);
+        console.log("API ERROR", typeof(err));
+        setSnackBarOpen(true);
+        setTimeout(() => {
+          //autoHideDuration attr was not working
+          hideSnackBar();
+          navigate("/");
+        }, 3000);
+        return;
       }
     };
   

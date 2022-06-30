@@ -25,15 +25,18 @@ const ForkIcon = ({ id, count }: ForkIconProps) => {
   const forkAGist = async (id: string) => {
     if (forkCount > 0) return;
 
-    if (auth?.user) {
+    if (auth?.user?.login) {
       let response = await forkGist(id);
-      if (response) setForkCount(forkCount + 1);
-      setSnackBarText("This gist has been Successfully forked");
-      setSnackBarOpen(true);
-    } else {
-      setSnackBarText("You need to login to fork a gist");
-      setSnackBarOpen(true);
+      if (response) {
+        setForkCount(forkCount + 1);
+        setSnackBarText("This gist has been Successfully forked");
+        setSnackBarOpen(true);
+      }
+      console.log("forkCount", forkCount);
+      console.log("auth?.user", auth?.user);
     }
+    setSnackBarText("You need to login to fork a gist");
+    setSnackBarOpen(true);
 
     setTimeout(() => {
       //autoHideDuration attr was not working
@@ -46,7 +49,7 @@ const ForkIcon = ({ id, count }: ForkIconProps) => {
       <Snackbar open={snackBarOpen} message={snackBarText} />
       <FontAwesomeIcon
         onClick={() => forkAGist(id)}
-        className={forkCount ? "forked" : "styledIcon"}
+        className={forkCount > 0 ? "forked" : "styledIcon"}
         icon={faCodeFork}
       />
     </>

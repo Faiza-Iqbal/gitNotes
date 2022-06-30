@@ -34,6 +34,7 @@ const GridLayout = ({ apiData }: GridLayoutProps) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(+event.target.value);
+    console.log("event.target.value", +event.target.value);
     setPage(0);
   };
 

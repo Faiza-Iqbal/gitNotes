@@ -3,9 +3,17 @@
   Link{
     text-decoration: none;
   }
+
   tbody {
     tr:hover{
     box-shadow: 1px 4px 4px 1px $lightGrey;
     -webkit-box-shadow: 1px 4px 4px 1px $lightGrey;
     -moz-box-shadow: 1px 4px 4px 1px $lightGrey;
-  }}
+  }
+}
+  @media screen and (max-width: 768px){
+    .typoResponsive{
+      font-size: 10px;
+    }
+}
+

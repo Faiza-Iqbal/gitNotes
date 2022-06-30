@@ -11,7 +11,7 @@ const YourGists = () => {
   return (
     <>
       <Snackbar open={snackBarOpen} message="Bad Credentials" />
-      <Gists isStarred={0} apiData={gists} />;
+      <Gists apiData={gists} />;
     </>
   );
 };

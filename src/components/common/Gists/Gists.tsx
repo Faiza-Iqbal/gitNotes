@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
-import { Avatar, Typography, Box, Paper, Grid } from "@mui/material";
+import { Avatar, Typography, Box, Paper, Grid, Link } from "@mui/material";
 
 // src
 import Header from "../Header/Header";
@@ -26,12 +26,12 @@ import "./Gists.scss";
 
 type GistsProps = {
   apiData: any;
-  isStarred: number;
+  isStarred?: boolean;
 };
 
-const Gists = ({ apiData, isStarred }: GistsProps) => {
+const Gists = ({ apiData, isStarred = false }: GistsProps) => {
   const [searchState, setSearchState] = useState("");
-  const [apiDataState, setApiDataState] = useState(apiData);
+  const [apiDataState, setApiDataState] = useState<any>();
   const navigate = useNavigate();
   const auth = useContext(userContext);
 
@@ -43,7 +43,7 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
     let response = await removeGist(id);
 
     if (response) {
-      const filteredGists = apiDataState.filter((apiItem: any) => {
+      const filteredGists = apiDataState?.filter((apiItem: any) => {
         if (apiItem?.id !== id) return true;
         else return false;
       });
@@ -62,14 +62,21 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
       <Header editSearchState={editSearchState} searchState={searchState} />
       <Section>
         <div className="innerWrapper">
-          <Box sx={{ flexGrow: 1 }}>
+          <Box>
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
-              <Grid container item xs={2} sm={4} md={4}>
-                <Grid item>
+              <Grid
+                container
+                item
+                xs={12}
+                sm={12}
+                md={4}
+                justifyContent="center"
+              >
+                <Grid item sx={{ marginBottom: "50px" }}>
                   <Avatar
                     src={auth?.user?.avatar_url}
                     alt={auth?.user?.login}
@@ -88,38 +95,38 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                   >
                     {auth?.user?.login}
                   </Typography>
-                  <a
+                  <Link
                     className="blueAnchor"
                     target="_blank"
                     rel="noreferrer"
                     href={auth?.user.html_url}
                   >
-                    View GitHub Profile{" "}
-                  </a>
+                    View GitHub Profile
+                  </Link>
                 </Grid>
               </Grid>
-              <Grid item xs={2} sm={8} md={8}>
-                {apiDataState.map((apiItem: any, index: number) => (
+              <Grid item sm={8} md={8}>
+                {apiDataState?.map((apiItem: any, index: number) => (
                   <div key={`${apiItem?.id}`} className="pd-btm50">
                     <Grid container alignItems="center" className="pd-btm50">
-                      <Grid item lg={1}>
+                      <Grid item sm={1} md={1} lg={1}>
                         <Avatar
                           src={apiItem?.owner?.avatar_url}
                           alt={apiItem?.owner?.login}
                         />
                       </Grid>
-                      <Grid item lg={6}>
+                      <Grid item sm={6} md={5} lg={6}>
                         <Typography color="blue">
                           {apiItem?.owner?.login}
                         </Typography>
                         <Typography style={{ color: "gray", fontSize: "14px" }}>
-                          Created {showDateInDays(apiItem?.created_at)}{" "}
+                          Created {showDateInDays(apiItem?.created_at)}
                         </Typography>
                         <p style={{ color: "gray", fontSize: "10px" }}>
-                          Broadcast Server{" "}
+                          Broadcast Server
                         </p>
                       </Grid>
-                      <Grid item lg={5}>
+                      <Grid item sm={5} md={6} lg={5}>
                         {apiItem?.owner?.login === auth?.user?.login && (
                           <>
                             <EditGist apiItem={apiItem} />
@@ -134,11 +141,7 @@ const Gists = ({ apiData, isStarred }: GistsProps) => {
                           count={isStarred ? 1 : 0}
                         />
                         <ForkWithCount
-                          enable={
-                            apiItem?.owner?.login === auth?.user?.login
-                              ? false
-                              : true
-                          }
+                          enable={apiItem?.owner?.login !== auth?.user?.login}
                           id={apiItem?.id}
                           count={0}
                         />

@@ -3,9 +3,9 @@ let accessToken = localStorage.getItem("accessToken");
 
 // to convert date-time string to measure time from current date
 export const showDateInDays = (created_at_date: string): string => {
-  let timeString: string = "";
-  let totalMilliSeconds: number = +new Date() - +new Date(created_at_date);
-  let timeAgo: number = Math.floor(totalMilliSeconds / 86400000);
+  let timeString = "";
+  let totalMilliSeconds: number = (new Date()).getTime() - (new Date(created_at_date)).getTime();
+  let timeAgo = Math.floor(totalMilliSeconds / 86400000);
   if (timeAgo > 0) return (timeString += `${timeAgo} days ago`);
   timeAgo = Math.floor(totalMilliSeconds / (60 * 60 * 1000));
   if (timeAgo > 0) return (timeString += `${timeAgo} hours ago`);

@@ -6,7 +6,10 @@ export const HeaderStyled = styled.header({
   alignItems: "center",
   padding: "0px 10px",
   flexWrap: "wrap",
-  "@media(max-width:1024px)": {
+  "@media(max-width:768px)": {
+    padding: "10px",
+  },
+  "@media(max-width:420px)": {
     justifyContent: "center",
   },
 });

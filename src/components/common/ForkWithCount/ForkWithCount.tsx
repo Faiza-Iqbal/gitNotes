@@ -40,13 +40,15 @@ const ForkWithCount = ({ id, count, enable }: ForkWithCountProps) => {
     }
     if (auth?.user) {
       let response = await forkGist(id);
-      if (response) setForkCount(forkCount + 1);
-      setSnackBarText("This gist has been Successfully forked");
-      setSnackBarOpen(true);
-    } else {
-      setSnackBarText("You need to login to fork a gist");
-      setSnackBarOpen(true);
+      if (response) {
+        setForkCount(forkCount + 1);
+        setSnackBarText("This gist has been Successfully forked");
+        setSnackBarOpen(true);
+      }
     }
+    setSnackBarText("You need to login to fork a gist");
+    setSnackBarOpen(true);
+
     setTimeout(() => {
       //autoHideDuration attr was not working
       hideSnackBar();

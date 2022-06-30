@@ -15,6 +15,6 @@ const StarredGists = () => {
     },
   });
 
-  return <Gists apiData={apiData} isStarred={1} />;
+  return <Gists apiData={apiData} isStarred />;
 };
 export default StarredGists;

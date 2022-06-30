@@ -26,16 +26,17 @@ const StarIconComponent = ({ id, count }: StarIconComponentProp) => {
   const starAGist = async (id: string) => {
     if (starCount > 0) return;
 
-    if (auth?.user) {
+    if (auth?.user?.login) {
       let response = await starGist(id);
 
-      if (response) setStarCount(starCount + 1);
-      setSnackBarText("This gist has been Starred");
-      setSnackBarOpen(true);
-    } else {
-      setSnackBarText("You need to login to star a gist");
-      setSnackBarOpen(true);
+      if (response) {
+        setStarCount(starCount + 1);
+        setSnackBarText("This gist has been Starred");
+        setSnackBarOpen(true);
+      }
     }
+    setSnackBarText("You need to login to star a gist");
+    setSnackBarOpen(true);
 
     setTimeout(() => {
       //autoHideDuration attr was not working

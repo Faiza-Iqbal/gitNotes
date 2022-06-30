@@ -8,11 +8,11 @@ export const ContainerStyled = styled.div({
     maxWidth: "990px"
   },
   "@media (max-width:1024px)": {
-    maxWidth: "767px"
+    maxWidth: "990px"
   },
   "@media (max-width:768px) ": {
     padding: "0",
-    maxWidth: "430px"
+    maxWidth: "650px"
   },
   "@media (max-width:425px)" : {
     maxWidth: "320px"
@@ -58,6 +58,9 @@ export const FlexEnd = styled.div({
     alignItems: "center",
     justifyContent: "center",
     padding: "0",
+    "@media (max-width:768px)": {
+        margin: "0"
+    },
   });
 
   export const NavStyled = styled.nav({
