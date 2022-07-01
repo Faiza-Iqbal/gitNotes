@@ -56,9 +56,10 @@ const useCreateGist = () => {
     requestData.files[fileName] = {
       content: gistContent,
     };
+
     try {
       const response = await callToApi("https://api.github.com/gists", {
-        method: "POST",
+        method: "post",
         headers: {
           Authorization: `token ${auth?.accessToken}`,
         },
