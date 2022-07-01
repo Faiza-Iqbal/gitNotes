@@ -34,22 +34,21 @@ const GridLayout = ({ apiData }: GridLayoutProps) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(+event.target.value);
-    console.log("event.target.value", +event.target.value);
     setPage(0);
   };
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
+          columns={{ xs: 12, sm: 8, md: 12 }}
         >
           {apiData
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((apiItem: any, index: number) => (
-              <Grid item xs={2} sm={4} md={4} key={index}>
+              <Grid item xs={12} sm={4} md={4} key={index}>
                 <Item onClick={() => navigate(goToRoute("/gist", apiItem?.id))}>
                   <ViewFileContent
                     file={
@@ -66,15 +65,15 @@ const GridLayout = ({ apiData }: GridLayoutProps) => {
                     </Grid>
                     <Grid item lg={10}>
                       <Typography style={{ color: "blue", fontSize: "12px" }}>
-                        {apiItem?.owner?.login} /{" "}
+                        {apiItem?.owner?.login} /
                         {Object.keys(apiItem?.files)[0].substring(0, 20)}
                       </Typography>
                       <Typography style={{ color: "gray", fontSize: "10px" }}>
-                        Created {showDateInDays(apiItem?.created_at)}{" "}
+                        Created {showDateInDays(apiItem?.created_at)}
                       </Typography>
-                      <p style={{ color: "gray", fontSize: "10px" }}>
-                        Broadcast Server{" "}
-                      </p>
+                      <Typography style={{ color: "gray", fontSize: "10px" }}>
+                        Broadcast Server
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Item>
@@ -83,7 +82,7 @@ const GridLayout = ({ apiData }: GridLayoutProps) => {
         </Grid>
       </Box>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10, 25, 50]}
         component="div"
         count={apiData.length}
         rowsPerPage={rowsPerPage}

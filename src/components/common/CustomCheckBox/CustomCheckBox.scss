@@ -19,6 +19,7 @@
     width: 0;
   }
 }
+
 .checkmark {
   position: absolute;
   top: 0;
@@ -39,6 +40,7 @@
     transform: rotate(45deg);
   }
 }
+
 input:checked {
   ~ .checkmark {
     background-color: $seaGreen;
@@ -47,6 +49,7 @@ input:checked {
     }
   }
 }
+
 .checkmark {
   &:after {
     content: "";
@@ -54,8 +57,9 @@ input:checked {
     display: none;
   }
 }
-@media screen and (max-width: 768px){
-  .checkmark{
+
+@media screen and (max-width: $tablet) {
+  .checkmark {
     left: 0;
   }
 }

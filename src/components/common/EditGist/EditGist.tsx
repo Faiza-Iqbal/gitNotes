@@ -1,8 +1,10 @@
 // lib
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import axios from "axios";
-import { royalblue } from "../../../styles/variables";
+
+// style
+import { royalblue } from "../../../styles/colorVariables";
 
 const EditGist = ({ apiItem }: any) => {
   const navigate = useNavigate();

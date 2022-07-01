@@ -1,20 +1,28 @@
 // lib
 import { useContext, useState } from "react";
 import { Snackbar } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCodeFork } from "@fortawesome/free-solid-svg-icons";
 
 // src
 import userContext from "../../../context/userContext";
 
+// Font awesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCodeFork } from "@fortawesome/free-solid-svg-icons";
+
 // utils
 import { forkGist } from "../../../utils/GenericFunctions";
 
-type ForkIconProps = {
+// style
+import { royalblue } from "../../../styles/colorVariables";
+
+type ForkProps = {
   id: string;
   count: number;
+  enable: boolean;
+  css: string;
 };
-const ForkIcon = ({ id, count }: ForkIconProps) => {
+
+const Fork = ({ id, count, enable, css }: ForkProps) => {
   const [forkCount, setForkCount] = useState(count);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [snackBarText, setSnackBarText] = useState("");
@@ -24,7 +32,15 @@ const ForkIcon = ({ id, count }: ForkIconProps) => {
 
   const forkAGist = async (id: string) => {
     if (forkCount > 0) return;
-
+    if (!enable) {
+      setSnackBarText("You cannot fork your own gist!");
+      setSnackBarOpen(true);
+      setTimeout(() => {
+        //autoHideDuration attr was not working
+        hideSnackBar();
+      }, 3000);
+      return;
+    }
     if (auth?.user?.login) {
       let response = await forkGist(id);
       if (response) {
@@ -32,11 +48,10 @@ const ForkIcon = ({ id, count }: ForkIconProps) => {
         setSnackBarText("This gist has been Successfully forked");
         setSnackBarOpen(true);
       }
-      console.log("forkCount", forkCount);
-      console.log("auth?.user", auth?.user);
+    } else {
+      setSnackBarText("You need to login to fork a gist");
+      setSnackBarOpen(true);
     }
-    setSnackBarText("You need to login to fork a gist");
-    setSnackBarOpen(true);
 
     setTimeout(() => {
       //autoHideDuration attr was not working
@@ -47,13 +62,16 @@ const ForkIcon = ({ id, count }: ForkIconProps) => {
   return (
     <>
       <Snackbar open={snackBarOpen} message={snackBarText} />
-      <FontAwesomeIcon
-        onClick={() => forkAGist(id)}
-        className={forkCount > 0 ? "forked" : "styledIcon"}
-        icon={faCodeFork}
-      />
+      <span onClick={() => forkAGist(id)} className="spanWrap">
+        <FontAwesomeIcon style={IconStyled} icon={faCodeFork} />
+      </span>
     </>
   );
 };
-
-export default ForkIcon;
+const IconStyled = {
+  color: royalblue,
+  width: 18,
+  height: 12,
+  marginRight: 3,
+};
+export default Fork;

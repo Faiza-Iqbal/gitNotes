@@ -7,8 +7,8 @@ import Header from "../../components/common/Header/Header";
 import { Section } from "../../styles/styled_components";
 import Loader from "../../components/common/Loader/Loader";
 import ViewFileContent from "../../components/common/ViewFileContent/ViewFileContent";
-import StarWithCount from "../../components/common/StarWithCount/StarWithCount";
-import ForkWithCount from "../../components/common/ForkWithCount/ForkWithCount";
+import StarWithCount from "../../components/common/Star/Star";
+import ForkWithCount from "../../components/common/Fork/Fork";
 import useGistPage from "./useGistPage";
 
 // utils
@@ -16,6 +16,7 @@ import { showDateInDays } from "../../utils/GenericFunctions";
 
 // style
 import "./GistPage.scss";
+import { royalblue } from "../../styles/colorVariables";
 
 const GistPage = () => {
   const { gistData, loader, searchState, isStarred, auth, editSearchState } =
@@ -29,36 +30,43 @@ const GistPage = () => {
         <Section>
           <div className="innerWrapper">
             <Grid container alignItems="center" className="pd-btm50">
-              <Grid item lg={0.5}>
+              <Grid item xs={2} lg={0.5}>
                 <Avatar src={gistData?.owner?.avatar_url} alt="User Profile" />
               </Grid>
-              <Grid item lg={9.5}>
+              <Grid item xs={10} lg={9.5}>
                 <Typography color="blue">{gistData?.owner?.login}</Typography>
                 <Typography style={{ color: "gray", fontSize: "14px" }}>
                   Created {showDateInDays(gistData?.created_at)}{" "}
                 </Typography>
-                <p style={{ color: "gray", fontSize: "10px" }}>
-                  Broadcast Server{" "}
-                </p>
+                <Typography style={{ color: "gray", fontSize: "10px" }}>
+                  Broadcast Server
+                </Typography>
               </Grid>
-              <Grid item lg={2}>
-                <StarWithCount id={gistData?.id} count={isStarred} />
-                <ForkWithCount
-                  enable={
-                    gistData?.owner?.login === auth?.user?.login ? false : true
-                  }
-                  id={gistData?.id}
-                  count={0}
-                />
+              <Grid item xs={12} lg={2}>
+                <span className="spanWrap">
+                  <StarWithCount id={gistData?.id} count={isStarred} />
+                  <span className="spanWrap">Star</span>
+                  <ForkWithCount
+                    enable={
+                      gistData?.owner?.login === auth?.user?.login
+                        ? false
+                        : true
+                    }
+                    id={gistData?.id}
+                    count={0}
+                    css={royalblue}
+                  />
+                  <span className="spanWrap">Fork</span>
+                </span>
               </Grid>
             </Grid>
             <Item>
               <Grid>
                 <div className="gistContentWrapper">
-                  <p>
+                  <Typography>
                     {gistData?.files[Object.keys(gistData?.files)[0]]?.filename}
-                  </p>
-                  <hr></hr>
+                  </Typography>
+                  <hr />
                   <ViewFileContent
                     file={
                       gistData?.files[Object.keys(gistData?.files)[0]]?.raw_url

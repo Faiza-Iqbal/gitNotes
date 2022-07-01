@@ -24,7 +24,7 @@ const ViewFileContent: React.FC<Props> = ({ file }) => {
         setContent(resp.replace(/^(.*)$/gm, '<span class="line">$1</span>'));
         setLoader(false);
       } catch (err) {
-        console.log("err", err);
+        console.log("API error:", err);
       }
     })();
   }, [file]);

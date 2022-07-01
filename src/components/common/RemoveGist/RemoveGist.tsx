@@ -1,6 +1,6 @@
 // lib
 import DeleteIcon from "@mui/icons-material/Delete";
-import { royalblue } from "../../../styles/variables";
+import { royalblue } from "../../../styles/colorVariables";
 
 type RemoveGistProps = {
   apiItem: any;

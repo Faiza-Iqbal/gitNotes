@@ -1,15 +1,16 @@
 import styled from "@emotion/styled";
+import { device } from "../../../styles/devices";
 
-export const HeaderStyled = styled.header({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "0px 10px",
-  flexWrap: "wrap",
-  "@media(max-width:768px)": {
-    padding: "10px",
-  },
-  "@media(max-width:420px)": {
-    justifyContent: "center",
-  },
-});
+export const HeaderStyled = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  flex-wrap: wrap;
+  @media ${device.tablet} {
+    padding: 15px;
+  }
+  @media ${device.mobileL} {
+    justify-content: center;
+  }
+`;

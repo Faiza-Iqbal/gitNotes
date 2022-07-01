@@ -8,6 +8,7 @@
   top: 7px;
   opacity: 0.8;
 }
+
 picture {
   img {
     width: 22px;
@@ -30,6 +31,7 @@ picture {
   &:focus-visible {
     outline: none;
   }
+
   &::placeholder {
     color: $white;
     font-size: 11px;
@@ -37,7 +39,7 @@ picture {
   }
 }
 
-.anchorButton {
+.MuiTypography-inherit.MuiLink-root {
   border: none;
   background-color: $white;
   padding: 10px 20px;
@@ -49,28 +51,39 @@ picture {
   cursor: pointer;
   text-decoration: none;
 }
+
 .plainAnchor {
   text-decoration: none;
   color: rgba($black, 0.87);
 }
-@media screen and (max-width: 768px) {
+
+@media screen and (max-width: $tablet) {
   picture {
     img {
       width: 15px;
       height: 11px;
     }
   }
-  .searchBar{
+
+  .searchBar {
     padding: 5px;
     min-width: 200px;
   }
-  .searchIcon{
+
+  .searchIcon {
     right: 16px;
     top: 2px;
   }
 }
-@media screen and (max-width: 768px) {
-  .searchBar{
+
+@media screen and (max-width: $mobileL) {
+  .searchBar {
     min-width: 160px;
+  }
+
+  .MuiTypography-inherit.MuiLink-root {
+    margin-left: 0px;
+    padding: 5px;
+    font-size: 12px;
   }
 }

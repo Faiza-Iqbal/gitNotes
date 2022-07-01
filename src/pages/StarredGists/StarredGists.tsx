@@ -10,6 +10,7 @@ const StarredGists = () => {
   const auth = useContext(userContext);
 
   const apiData = useFetch("https://api.github.com/gists/starred?per_page=5", {
+    method: "GET",
     headers: {
       Authorization: `token ${auth?.accessToken}`,
     },

@@ -8,8 +8,8 @@ import { Avatar, Typography, Box, Paper, Grid, Link } from "@mui/material";
 import Header from "../Header/Header";
 import { Section } from "../../../styles/styled_components";
 import ViewFileContent from "../ViewFileContent/ViewFileContent";
-import StarWithCount from "../StarWithCount/StarWithCount";
-import ForkWithCount from "../ForkWithCount/ForkWithCount";
+import StarWithCount from "../Star/Star";
+import Fork from "../Fork/Fork";
 import EditGist from "../EditGist/EditGist";
 import RemoveGist from "../RemoveGist/RemoveGist";
 import userContext from "../../../context/userContext";
@@ -23,6 +23,7 @@ import {
 
 // style
 import "./Gists.scss";
+import { royalblue } from "../../../styles/colorVariables";
 
 type GistsProps = {
   apiData: any;
@@ -66,7 +67,7 @@ const Gists = ({ apiData, isStarred = false }: GistsProps) => {
             <Grid
               container
               spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
+              columns={{ xs: 12, sm: 12, md: 12 }}
             >
               <Grid
                 container
@@ -105,17 +106,22 @@ const Gists = ({ apiData, isStarred = false }: GistsProps) => {
                   </Link>
                 </Grid>
               </Grid>
-              <Grid item sm={8} md={8}>
+              <Grid item xs={12} sm={8} md={8}>
                 {apiDataState?.map((apiItem: any, index: number) => (
                   <div key={`${apiItem?.id}`} className="pd-btm50">
-                    <Grid container alignItems="center" className="pd-btm50">
-                      <Grid item sm={1} md={1} lg={1}>
+                    <Grid
+                      container
+                      item
+                      alignItems="center"
+                      className="pd-btm50"
+                    >
+                      <Grid item xs={2} sm={1} md={1} lg={1}>
                         <Avatar
                           src={apiItem?.owner?.avatar_url}
                           alt={apiItem?.owner?.login}
                         />
                       </Grid>
-                      <Grid item sm={6} md={5} lg={6}>
+                      <Grid item xs={10} sm={6} md={5} lg={6}>
                         <Typography color="blue">
                           {apiItem?.owner?.login}
                         </Typography>
@@ -126,7 +132,7 @@ const Gists = ({ apiData, isStarred = false }: GistsProps) => {
                           Broadcast Server
                         </p>
                       </Grid>
-                      <Grid item sm={5} md={6} lg={5}>
+                      <Grid item xs={12} sm={5} md={6} lg={5}>
                         {apiItem?.owner?.login === auth?.user?.login && (
                           <>
                             <EditGist apiItem={apiItem} />
@@ -136,15 +142,26 @@ const Gists = ({ apiData, isStarred = false }: GistsProps) => {
                             />
                           </>
                         )}
-                        <StarWithCount
-                          id={apiItem?.id}
-                          count={isStarred ? 1 : 0}
-                        />
-                        <ForkWithCount
-                          enable={apiItem?.owner?.login !== auth?.user?.login}
-                          id={apiItem?.id}
-                          count={0}
-                        />
+                        <span className="spanWrap">
+                          <StarWithCount
+                            id={apiItem?.id}
+                            count={isStarred ? 1 : 0}
+                          />
+                          <span className="spanWrap">Star</span>
+                          <>
+                            <Fork
+                              enable={
+                                apiItem?.owner?.login === auth?.user?.login
+                                  ? false
+                                  : true
+                              }
+                              id={apiItem?.id}
+                              count={0}
+                              css={royalblue}
+                            />
+                            <span className="spanWrap">Fork</span>
+                          </>
+                        </span>
                       </Grid>
                     </Grid>
                     <Item

@@ -9,14 +9,14 @@ import userContext from "../../../context/userContext";
 
 // utils
 import { starGist } from "../../../utils/GenericFunctions";
-import { royalblue } from "../../../styles/variables";
+import { royalblue } from "../../../styles/colorVariables";
 
-type StarWithCountProps = {
+type StarProps = {
   id: string;
   count: number;
 };
 
-const StarWithCount = ({ id, count }: StarWithCountProps) => {
+const Star = ({ id, count }: StarProps) => {
   const [starCount, setStarCount] = useState(count);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [snackBarText, setSnackBarText] = useState("");
@@ -27,12 +27,14 @@ const StarWithCount = ({ id, count }: StarWithCountProps) => {
   const starAGist = async (id: string) => {
     if (starCount > 0) return;
 
-    if (auth?.user) {
+    if (auth?.user?.login) {
       let response = await starGist(id);
 
-      if (response) setStarCount(starCount + 1);
-      setSnackBarText("This gist has been Starred! ");
-      setSnackBarOpen(true);
+      if (response) {
+        setStarCount(starCount + 1);
+        setSnackBarText("This gist has been Starred! ");
+        setSnackBarOpen(true);
+      }
     } else {
       setSnackBarText("You need to login to star a gist");
       setSnackBarOpen(true);
@@ -50,8 +52,6 @@ const StarWithCount = ({ id, count }: StarWithCountProps) => {
       <span onClick={() => starAGist(id)} className="spanWrap">
         {starCount === 0 && <StarBorderIcon style={IconStyled} />}
         {starCount > 0 && <StarIcon style={IconStyled} />}
-        <span>Star</span>
-        {/* <span className="counter">{starCount}</span> */}
       </span>
     </>
   );
@@ -62,4 +62,4 @@ const IconStyled = {
   height: 16,
 };
 
-export default StarWithCount;
+export default Star;

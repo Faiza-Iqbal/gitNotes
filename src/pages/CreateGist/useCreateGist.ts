@@ -64,14 +64,7 @@ const useCreateGist = () => {
         },
         body: JSON.stringify(requestData),
       });
-      // console.log("requestData",requestData);
-      // const response = await axios.post("https://api.github.com/gists",  {
-      //   headers: {
-      //     Authorization: `token ${auth?.accessToken}`,
-      //   },
-      //   body: JSON.stringify(requestData),
-      // })
-      console.log("response", response);
+
       if (response) {
         setSnackBarTextOpen("New Gist Created Successfully!");
         setSnackBarOpen(true);

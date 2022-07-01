@@ -16,17 +16,18 @@ import {
 } from "@mui/material";
 
 // src
-import StarIconComponent from "../StarIconComponent/StarIconComponent";
-import ForkIcon from "../ForkIcon/ForkIcon";
 import userContext from "../../../context/userContext";
 import CustomCheckBox from "../CustomCheckBox/CustomCheckBox";
 import { tableHeading } from "../../../constants/tableData";
+import { royalblue } from "../../../styles/colorVariables";
 
 // utils
 import { goToRoute } from "../../../utils/GenericFunctions";
 
 // style
 import "./ListLayout.scss";
+import Fork from "../Fork/Fork";
+import StarWithCount from "../Star/Star";
 
 type ListLayoutProps = {
   apiData: any;
@@ -102,9 +103,20 @@ const ListLayout = ({ apiData }: ListLayoutProps) => {
                   <TableCell>{row?.owner?.login}</TableCell>
                   <TableCell>
                     <span>
-                      <StarIconComponent id={row?.id} count={0} />
+                      <StarWithCount id={row?.id} count={0} />
                       {row?.owner?.login !== auth?.user?.login && (
-                        <ForkIcon id={row?.id} count={0} />
+                        // <ForkIcon id={row?.id} count={0} />
+
+                        <Fork
+                          enable={
+                            row?.owner?.login === auth?.user?.login
+                              ? false
+                              : true
+                          }
+                          id={row?.id}
+                          count={0}
+                          css={royalblue}
+                        />
                       )}
                     </span>
                   </TableCell>
@@ -113,7 +125,7 @@ const ListLayout = ({ apiData }: ListLayoutProps) => {
           </TableBody>
         </Table>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[10, 25, 50]}
           component="div"
           count={apiData.length}
           rowsPerPage={rowsPerPage}

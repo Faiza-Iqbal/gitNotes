@@ -13,7 +13,7 @@ import RouteRequiresLogin from "./components/common/RouteRequiresLogin/RouteRequ
 // utils
 import { authService } from "./utils/authService";
 import "./styles.scss";
-import NotFound from "./pages/NotFound/NotFound";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function App() {
   const auth = authService();
@@ -29,7 +29,7 @@ function App() {
             <Route path="/create-gist" element={<CreateGist />} />
           </Route>
           <Route path="/gist/:id" element={<GistPage />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
     </userContext.Provider>

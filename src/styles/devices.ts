@@ -7,6 +7,7 @@ const size = {
   laptopL: "1440px",
   desktop: "2560px",
 };
+
 export const device = {
   mobileS: `(max-width: ${size.mobileS})`,
   mobileM: `(max-width: ${size.mobileM})`,

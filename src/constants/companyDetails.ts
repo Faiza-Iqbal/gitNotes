@@ -3,4 +3,5 @@ const companyDetails = {
   url: "http://localhost:4500",
   name: "EMUMBA",
 };
+
 export default companyDetails;

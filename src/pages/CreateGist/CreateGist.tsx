@@ -1,11 +1,10 @@
 // lib
 import { useState } from "react";
-import { Snackbar } from "@mui/material";
+import { Container, Snackbar } from "@mui/material";
 
 // src
 import useCreateGist from "./useCreateGist";
 import Header from "../../components/common/Header/Header";
-import { ContainerStyled } from "../../styles/styled_components";
 import SubmitButton from "../../components/common/SubmitButton/SubmitButton";
 
 // style
@@ -35,7 +34,7 @@ const CreateGist = () => {
     <>
       <Snackbar open={snackBarOpen} message={snackBarText} />
       <Header editSearchState={editSearchState} searchState={searchState} />
-      <ContainerStyled>
+      <Container>
         <form className="outerWrapper pd-50">
           <input
             type="text"
@@ -68,7 +67,7 @@ const CreateGist = () => {
             label={location.state ? "Update" : "Create"}
           />
         </div>
-      </ContainerStyled>
+      </Container>
     </>
   );
 };

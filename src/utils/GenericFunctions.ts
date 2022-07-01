@@ -1,4 +1,5 @@
 import axios from "axios";
+
 let accessToken = localStorage.getItem("accessToken");
 
 // to convert date-time string to measure time from current date
@@ -16,7 +17,7 @@ export const showDateInDays = (created_at_date: string): string => {
 // Star a gist call
 export const starGist = async (gist_id: string) => {
   try {
-    let resp = await fetch(`https://api.github.com/gists/${gist_id}/star`, {
+    let resp = await callToApi(`https://api.github.com/gists/${gist_id}/star`, {
       method: "PUT",
       headers: {
         Authorization: `token ${accessToken}`,
@@ -107,8 +108,21 @@ type headersType = {
 }
 export const callToApi = async (route: string, headers: headersType) => {
   try {
-    const response = await fetch(route, headers);
-    return response.json();
+    // const response = await fetch(route, headers);
+    // return response;
+    if(headers?.method === "POST"){
+      const response = await axios.post(route, headers);
+      return response;
+    }
+    if(headers?.method === "PUT"){
+      const response = await axios.put(route, headers);
+      return response;
+    }
+    if(headers?.method === "GET"){
+      const response = await axios.get(route, headers);
+      return response;
+    }
+
   } 
   catch (err) {
     console.error(`API error: ${err}`);

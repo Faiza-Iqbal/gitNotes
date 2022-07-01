@@ -21,27 +21,32 @@
     padding: 8px;
   }
 }
-input[type="text"]{
-    &:focus{
-        outline: 1px solid $seaGreen;
-    }
+
+input[type="text"] {
+  &:focus {
+    outline: 1px solid $seaGreen;
+  }
 }
-textarea{
-    &:focus {
-      outline: 1px solid $seaGreen;
-    }
+
+textarea {
+  &:focus {
+    outline: 1px solid $seaGreen;
+  }
 }
-.outerWrapper.pd-50{
-    &:first-child {
-        padding-bottom: 30px;
-      }
+
+.outerWrapper.pd-50 {
+  &:first-child {
+    padding-bottom: 30px;
+  }
 }
-.outerWrapper.pd-50{
-    &:nth-child(2) {
-      padding-top: 0px;
-      padding-bottom: 30px;
-    }
+
+.outerWrapper.pd-50 {
+  &:nth-child(2) {
+    padding-top: 0px;
+    padding-bottom: 30px;
+  }
 }
+
 .submitButton {
   background-color: $seaGreen;
   color: $white;
