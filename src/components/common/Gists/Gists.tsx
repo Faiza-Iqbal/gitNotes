@@ -49,7 +49,7 @@ const Gists = ({ apiData, isStarred = false }: GistsProps) => {
         else return false;
       });
 
-      setApiDataState(filteredGists);
+      setApiDataState(JSON.parse(JSON.stringify(filteredGists)));
       return response;
     }
   };

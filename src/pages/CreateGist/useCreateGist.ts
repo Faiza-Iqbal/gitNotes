@@ -1,5 +1,4 @@
 // lib
-import axios from "axios";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import userContext from "../../context/userContext";
@@ -58,13 +57,16 @@ const useCreateGist = () => {
     };
 
     try {
-      const response = await callToApi("https://api.github.com/gists", {
-        method: "post",
-        headers: {
-          Authorization: `token ${auth?.accessToken}`,
-        },
-        body: JSON.stringify(requestData),
-      });
+      const response = await callToApi(
+        "https://api.github.com/gists",
+        JSON.stringify(requestData),
+        {
+          method: "POST",
+          headers: {
+            Authorization: `token ${auth?.accessToken}`,
+          },
+        }
+      );
 
       if (response) {
         setSnackBarTextOpen("New Gist Created Successfully!");
@@ -90,13 +92,16 @@ const useCreateGist = () => {
     };
 
     try {
-      await callToApi(`https://api.github.com/gists/${id}`, {
-        method: "POST",
-        headers: {
-          Authorization: `token ${auth?.accessToken}`,
-        },
-        body: JSON.stringify(requestData),
-      });
+      await callToApi(
+        `https://api.github.com/gists/${id}`,
+        JSON.stringify(requestData),
+        {
+          method: "POST",
+          headers: {
+            Authorization: `token ${auth?.accessToken}`,
+          },
+        }
+      );
       navigate("/your-gists");
     } catch (err) {
       console.log("API ERROR", err);

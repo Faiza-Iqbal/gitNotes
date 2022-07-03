@@ -18,13 +18,17 @@ export const showDateInDays = (created_at_date: string): string => {
 // Star a gist call
 export const starGist = async (gist_id: string) => {
   try {
-    let resp = await callToApi(`https://api.github.com/gists/${gist_id}/star`, {
-      method: "PUT",
-      headers: {
-        Authorization: `token ${accessToken}`,
-        "Content-Length": "0",
-      },
-    });
+    let resp = await callToApi(
+      `https://api.github.com/gists/${gist_id}/star`,
+      null,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `token ${accessToken}`,
+          "Content-Length": "0",
+        },
+      }
+    );
     if (resp && resp.status === 204) return true;
   } catch (err) {
     console.log("API ERROR", err);
@@ -36,6 +40,7 @@ export const forkGist = async (gist_id: string) => {
   try {
     let response = await callToApi(
       `https://api.github.com/gists/${gist_id}/fork`,
+      null,
       {
         method: "POST",
         headers: {
@@ -53,12 +58,16 @@ export const forkGist = async (gist_id: string) => {
 // Edit a gist call
 export const editGist = async (gist_id: string) => {
   try {
-    let response = await callToApi(`https://api.github.com/gists/${gist_id}`, {
-      method: "POST",
-      headers: {
-        Authorization: `token ${accessToken}`,
-      },
-    });
+    let response = await callToApi(
+      `https://api.github.com/gists/${gist_id}`,
+      null,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `token ${accessToken}`,
+        },
+      }
+    );
 
     return response;
   } catch (err) {
@@ -78,7 +87,6 @@ export const removeGist = async (gist_id: string) => {
         },
       }
     );
-
     if (response.status === 204) return gist_id;
   } catch (err) {
     console.log("API ERROR", err);
@@ -102,24 +110,29 @@ type headersType = {
   headers: {
     [key: string]: any;
   };
-  body?: string;
 };
-export const callToApi = async (route: string, headers: headersType) => {
+export const callToApi = async (
+  route: string,
+  body: string | null,
+  headers: headersType
+) => {
   try {
     // const response = await fetch(route, headers);
     // return response;
-    if (headers?.method === "post") {
-      // console.log(route, headers);
-
-      const response = await axios(route, headers);
+    if (headers?.method === "POST") {
+      const response = await axios.post(route, body, headers);
       return response;
     }
     if (headers?.method === "PUT") {
-      const response = await axios.put(route, headers);
+      const response = await axios.put(route, body, headers);
       return response;
     }
     if (headers?.method === "GET") {
       const response = await axios.get(route, headers);
+      return response;
+    }
+    if (headers?.method === "DELETE") {
+      const response = await axios.delete(route, headers);
       return response;
     }
   } catch (err) {
